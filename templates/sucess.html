@@ -1,5 +1,9 @@
-<html>
-<body>
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
 <div style="display:none">
    	<input type="hidden" name="csrfmiddlewaretoken" value="{% csrf_token %}">
 </div>
@@ -8,5 +12,4 @@
 <h4>Your Transaction ID for this transaction is {{ txnid }}</h4>
 <h4>We have received a payment of Rs {{ amount}}</h4> 
 
-</body>
-</html>
+{% endblock content %}

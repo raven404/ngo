@@ -1,4 +1,9 @@
-<html>
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
   <head onload="submitPayuForm()">
   <script type="text/javascript">
     var hash = "{{ hashh }}";
@@ -11,21 +16,20 @@
     }
   </script>
   </head>
-  <body>
-    <h2>PayU Form</h2>
+    <h2 style="text-align: center; padding-top: 20px;">DONATION FORM</h2>
     <br/>
     {% if error %}
 	
       <span style="color:red">Please fill all mandatory fields.</span>
       <br/>
       <br/>
-      {% endif %}
+    {% endif %}
      
-      <form action={{ action }} method="post" name="payuForm">{% csrf_token %}
+      <form style="padding-left: 50px;"  action= {{action}} method="post" name="payuForm">{% csrf_token %}
       <input type="hidden" name="key" value="{{ MERCHANT_KEY }}" />
       <input type="hidden" name="hash_string" value="{{ hash_string }}" />
       <input type="hidden" name="hash" value="{{ hashh }}"/>
-       <input type="hidden" name="posted" value="{{ posted }}"/>
+      <input type="hidden" name="posted" value="{{ posted }}"/>
       <input type="hidden" name="txnid" value="{{ txnid }}" />
       <table>
         <tr>
@@ -44,7 +48,7 @@
           <td><input name="phone" value="{{ posted.phone|default:'' }}" /></td>
         </tr>
         <tr>
-          <td>Product Info: </td>
+          <td>Donation Info: </td>
           <td colspan="3"><textarea name="productinfo">{{ posted.productinfo|default:'' }}</textarea></td>
         </tr>
         <tr>
@@ -105,12 +109,12 @@
           <td><input name="pg" value="{{ posted.PG }}" /></td>
         </tr>
         
-     <td colspan="4"><input type="submit" value="Submit" /></td>
+     <td colspan="4"><input type="submit" value="DONATE" /></td>
       
     
         </tr>
       </table>
     </form>
-  </body>
-</html>
+    
+{% endblock content %}
 

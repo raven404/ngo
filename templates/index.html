@@ -76,14 +76,32 @@
 
 
     <!-- Slideshow container -->
+        <style>
+        .carousel .item {
+        height: 300px;
+        }
+
+        .item img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        min-height: 300px;
+        }
+    </style>
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
-          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            {% for obj in sliderview %}
+                {% if forloop.first %}
+                    <li data-target="#carouselExampleIndicators" data-slide-to="{{forloop.counter0}}" class="active"></li>
+                {% else %}
+                    <li data-target="#carouselExampleIndicators" data-slide-to="{{forloop.counter0}}"></li>
+
+                {% endif %}
+            {% endfor %}
           <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
         </ol>
         <div class="carousel-inner">
-            {% for obj in projects %}
+            {% for obj in sliderview %}
                 {% if forloop.first %}
                     <div class="carousel-item active  ">
                 {% else %}
@@ -103,6 +121,7 @@
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="sr-only">Next</span>
         </a>
+        </div>
     </div>
       
 

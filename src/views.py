@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse , HttpResponseRedirect, Http404
-from .models import Post
+from .models import Post, Author, PostView
 from django.template.loader import get_template
 from django.template import Context, Template,RequestContext
 import datetime
@@ -8,14 +8,55 @@ import hashlib
 from random import randint
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from django.views.decorators import csrf
+from .forms import CommentForm, PostForm
+from django.views.generic import View, ListView, DetailView, CreateView, UpdateView, DeleteView
 
+from subscribe.forms import EmailSignupForm
 # Create your views here.
 
+form = EmailSignupForm()
+
+def get_author(user):
+    qs = Author.objects.filter(user=user)
+    if qs.exists():
+        return qs[0]
+    return None
+
+class IndexView(View):
+    form = EmailSignupForm()
+
+    def get(self, request, *args, **kwargs):
+        featured = Post.objects.filter(featured=True)
+        latest = Post.objects.order_by('-timestamp')[0:3]
+        context = {
+            'object_list': featured,
+            'latest': latest,
+            'form': self.form
+        }
+        return render(request, 'index.html', context)
+
+    def post(self, request, *args, **kwargs):
+        email = request.POST.get("email")
+        new_signup = Signup()
+        new_signup.email = email
+        new_signup.save()
+        messages.info(request, "Successfully subscribed")
+        return redirect("home")
+
+
+
 def index(request):
-    programs = Post.objects.filter(featured=True,categories__title__exact = "program")
-    projects = Post.objects.filter(featured=True,categories__title__exact = "project")
-    sliderview= Post.objects.filter(slider=True )
-    latest = Post.objects.order_by('-timestamp')[0:3]
+    programs = Post.objects.filter(featured=True,categories__title__exact = "program").order_by('-timestamp')[0:3]
+    projects = Post.objects.filter(featured=True,categories__title__exact = "project").order_by('-timestamp')[0:3]
+    sliderview= Post.objects.filter(slider=True ).order_by('-timestamp')[0:3]
+    latest = Post.objects.order_by('-timestamp')[0:3]   
+
+    if request.method == "POST": 
+        email = request.POST["email"]
+        new_signup = Signup()
+        new_signup.email = email
+        new_signup.save()
+        
     context = {
         'programs': programs,
         'projects':projects,

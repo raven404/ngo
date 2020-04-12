@@ -135,7 +135,9 @@ MEDIA_ROOT=os.path.join(VENV_PATH,'media_root')
 
 # Tinymce
 
-TINYMCE_DEFAULT_CONFIG = {
+TINYMCE_DEFAULT_CONFIG = {  
+    'height':300,
+    'width':950,
     'cleanup_on_startup': True,
     'custom_undo_redo_levels': 20,
     'selector': 'textarea',

@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404 , redirect
+from django.shortcuts import render, get_object_or_404 , redirect, reverse
 from django.http import HttpResponse , HttpResponseRedirect, Http404
 from .models import Post, Author, PostView
 from django.template.loader import get_template
@@ -11,7 +11,11 @@ from django.views.decorators import csrf
 from .forms import CommentForm, PostForm
 from django.views.generic import View, ListView, DetailView, CreateView, UpdateView, DeleteView
 
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib import messages
 from subscribe.forms import EmailSignupForm
+from subscribe.models import Signup
+
 # Create your views here.
 
 form = EmailSignupForm()
@@ -75,18 +79,18 @@ class PostListView(ListView):
     paginate_by = 1
 
     def get_context_data(self, **kwargs):
-        category_count = get_category_count()
+        #category_count = get_category_count()
         most_recent = Post.objects.order_by('-timestamp')[:3]
         context = super().get_context_data(**kwargs)
         context['most_recent'] = most_recent
         context['page_request_var'] = "page"
-        context['category_count'] = category_count
+        #context['category_count'] = category_count
         context['form'] = self.form
         return context
 
 
 def post_list(request):
-    category_count = get_category_count()
+    #category_count = get_category_count()
     most_recent = Post.objects.order_by('-timestamp')[:3]
     post_list = Post.objects.all()
     paginator = Paginator(post_list, 4)
@@ -103,14 +107,77 @@ def post_list(request):
         'queryset': paginated_queryset,
         'most_recent': most_recent,
         'page_request_var': page_request_var,
-        'category_count': category_count,
+        #'category_count': category_count,
         'form': form
     }
     return render(request, 'blog.html', context)
 
+class PostDetailView(DetailView):
+    model = Post
+    template_name = 'post.html'
+    context_object_name = 'post'
+    form = CommentForm()
 
-def blog(request):
-    return render(request,'blog.html', {})
+    def get_object(self):
+        obj = super().get_object()
+        if self.request.user.is_authenticated:
+            PostView.objects.get_or_create(
+                user=self.request.user,
+                post=obj
+            )
+        return obj
+
+    def get_context_data(self, **kwargs):
+        #category_count = get_category_count()
+        most_recent = Post.objects.order_by('-timestamp')[:3]
+        context = super().get_context_data(**kwargs)
+        context['most_recent'] = most_recent
+        context['page_request_var'] = "page"
+        #context['category_count'] = category_count
+        context['form'] = self.form
+        return context
+
+    def post(self, request, *args, **kwargs):
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            post = self.get_object()
+            form.instance.user = request.user
+            form.instance.post = post
+            form.save()
+            return redirect(reverse("post-detail", kwargs={
+                'pk': post.pk
+            }))
+
+
+def post_detail(request, id):
+    #category_count = get_category_count()
+    most_recent = Post.objects.order_by('-timestamp')[:3]
+    post = get_object_or_404(Post, id=id)
+
+    if request.user.is_authenticated:
+        PostView.objects.get_or_create(user=request.user, post=post)
+
+    form = CommentForm(request.POST or None)
+    if request.method == "POST":
+        if form.is_valid():
+            form.instance.user = request.user
+            form.instance.post = post
+            form.save()
+            return redirect(reverse("post-detail", kwargs={
+                'id': post.pk
+            }))
+    context = {
+        'post': post,
+        'most_recent': most_recent,
+        #'category_count': category_count,
+        'form': form
+    }
+    return render(request, 'post.html', context)
+
+
+
+# def blog(request):
+#     return render(request,'blog.html', {})
 
 def about(request):
     return render(request,'about.html', {})

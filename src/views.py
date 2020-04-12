@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404 , redirect
 from django.http import HttpResponse , HttpResponseRedirect, Http404
 from .models import Post, Author, PostView
 from django.template.loader import get_template
@@ -17,9 +17,9 @@ from subscribe.forms import EmailSignupForm
 form = EmailSignupForm()
 
 def get_author(user):
-    qs = Author.objects.filter(user=user)
-    if qs.exists():
-        return qs[0]
+    author = Author.objects.filter(user=user)
+    if author.exists():
+        return author[0]
     return None
 
 class IndexView(View):
@@ -56,6 +56,7 @@ def index(request):
         new_signup = Signup()
         new_signup.email = email
         new_signup.save()
+
         
     context = {
         'programs': programs,
@@ -66,6 +67,48 @@ def index(request):
 
     return render(request,'index.html', context)
 
+class PostListView(ListView):
+    form = EmailSignupForm()
+    model = Post
+    template_name = 'blog.html'
+    context_object_name = 'queryset'
+    paginate_by = 1
+
+    def get_context_data(self, **kwargs):
+        category_count = get_category_count()
+        most_recent = Post.objects.order_by('-timestamp')[:3]
+        context = super().get_context_data(**kwargs)
+        context['most_recent'] = most_recent
+        context['page_request_var'] = "page"
+        context['category_count'] = category_count
+        context['form'] = self.form
+        return context
+
+
+def post_list(request):
+    category_count = get_category_count()
+    most_recent = Post.objects.order_by('-timestamp')[:3]
+    post_list = Post.objects.all()
+    paginator = Paginator(post_list, 4)
+    page_request_var = 'page'
+    page = request.GET.get(page_request_var)
+    try:
+        paginated_queryset = paginator.page(page)
+    except PageNotAnInteger:
+        paginated_queryset = paginator.page(1)
+    except EmptyPage:
+        paginated_queryset = paginator.page(paginator.num_pages)
+
+    context = {
+        'queryset': paginated_queryset,
+        'most_recent': most_recent,
+        'page_request_var': page_request_var,
+        'category_count': category_count,
+        'form': form
+    }
+    return render(request, 'blog.html', context)
+
+
 def blog(request):
     return render(request,'blog.html', {})
 
@@ -74,6 +117,10 @@ def about(request):
 
 def contact(request):
     return render(request,'contact.html', {})
+
+
+
+#PAYMENT GATEEWAY     
 
 def pay(request):
     MERCHANT_KEY = "BXpOVCvl"

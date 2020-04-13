@@ -272,7 +272,7 @@
     <div class="container-fluid fh5co_video_news_bg pb-4">
         <div class="container animate-box" data-animate-effect="fadeIn">
             <div>
-                <div class="fh5co_heading fh5co_heading_border_bottom pt-5 pb-2 mb-4  text-white">Video News </div>
+             <div class="fh5co_heading fh5co_heading_border_bottom pt-5 pb-2 mb-4 ">Video News </div>
             </div>
             <div>
                 <div class="owl-carousel owl-theme" id="slider3">
@@ -375,23 +375,24 @@
             <div class="row mx-0">
                 <div class="col-md-8 animate-box" data-animate-effect="fadeInLeft">
                     <div>
-                        <div class="fh5co_heading fh5co_heading_border_bottom py-2 mb-4">Campus</div>
+                        <div class="fh5co_heading fh5co_heading_border_bottom py-2 mb-4" id="camps">Campus</div>
                     </div>
-                    <div class="row pb-4">
-                        <div class="col-md-5">
-                            <div class="fh5co_hover_news_img">
-                                <div class="fh5co_news_img"><img src="{% static 'images/IMG_3548.JPG' %}" alt="" /></div>
-                                <div></div>
+                    {% for obj in campus%}
+                        <div class="row pb-4">
+                            <div class="col-md-5">
+                                <div class="fh5co_hover_news_img">
+                                    <div class="fh5co_news_img"><img src="{{obj.thumbnail}}" alt="" /></div>
+                                    <div></div>
+                                </div>
                             </div>
-                        </div>
                         <div class="col-md-7 animate-box">
-                            <a href="about/" class="fh5co_magna py-2"> Health Camps and Medical Check-Ups <br>
+                            <a href="about/" class="fh5co_magna py-2"> {{obj.title}}<br>
                             </a>
-                            <a href="about/" class="fh5co_mini_time py-3"> April 18,2016 </a>
-                            <div class="fh5co_consectetur" style="text-align: justify">Catering to the medical needs of the disadvantaged Nandlal families, where facilities are hardly available, is one of our areas of social involvement. To that effect, we, with a team of like-minded doctors, nurses and volunteers
-                                periodically conduct several free medical camps and provide basic medical aid.</div>
+                            <a href="about/" class="fh5co_mini_time py-3"> {{obj.timestamp}} </a>
+                            <div class="fh5co_consectetur" style="text-align: justify">{{obj.overview}}</div>
                         </div>
-                    </div>
+                        </div>
+                    {%endfor%}
 
                     <div class="row pb-4">
                         <div class="col-md-5">

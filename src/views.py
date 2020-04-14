@@ -30,13 +30,17 @@ class IndexView(View):
     form = EmailSignupForm()
 
     def get(self, request, *args, **kwargs):
-        featured = Post.objects.filter(featured=True)
-        latest = Post.objects.order_by('-timestamp')[0:3]
+        programs = Post.objects.filter(featured=True,categories__title__exact = "program").order_by('-timestamp')[0:3]
+        projects = Post.objects.filter(featured=True,categories__title__exact = "project").order_by('-timestamp')[0:3]
+        sliderview= Post.objects.filter(slider=True ).order_by('-timestamp')[0:3]
+        latest = Post.objects.order_by('-timestamp')[0:3]   
         context = {
-            'object_list': featured,
+            'programs': programs,
+            'projects':projects,
             'latest': latest,
-            'form': self.form
+            'sliderview':sliderview,
         }
+
         return render(request, 'index.html', context)
 
     def post(self, request, *args, **kwargs):
@@ -210,6 +214,58 @@ def post_create(request):
     }
     return render(request, "post_create.html", context)
 
+class PostUpdateView(UpdateView):
+    model = Post
+    template_name = 'post_create.html'
+    form_class = PostForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Update'
+        return context
+
+    def form_valid(self, form):
+        form.instance.author = get_author(self.request.user)
+        form.save()
+        return redirect(reverse("post-detail", kwargs={
+            'pk': form.instance.pk
+        }))
+
+
+def post_update(request, id):
+    title = 'Update'
+    post = get_object_or_404(Post, id=id)
+    form = PostForm(
+        request.POST or None,
+        request.FILES or None,
+        instance=post)
+    author = get_author(request.user)
+    if request.method == "POST":
+        if form.is_valid():
+            form.instance.author = author
+            form.save()
+            return redirect(reverse("post-detail", kwargs={
+                'id': form.instance.id
+            }))
+    context = {
+        'title': title,
+        'form': form
+    }
+    return render(request, "post_create.html", context)
+
+
+class PostDeleteView(DeleteView):
+    model = Post
+    success_url = '/blog'
+    template_name = 'post_confirm_delete.html'
+
+
+def post_delete(request, id):
+    post = get_object_or_404(Post, id=id)
+    post.delete()
+    return redirect(reverse("post-list"))
+
+
 
 
 # def blog(request):
@@ -220,6 +276,14 @@ def about(request):
 
 def contact(request):
     return render(request,'contact.html', {})
+
+def team(request):
+    team = Post.objects.filter(categories__title__exact = "team").order_by('-timestamp')   
+    context = {
+        'team': team,
+    }
+
+    return render(request,'team.html', context)
 
 
 

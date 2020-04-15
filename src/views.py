@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404 , redirect, reverse
 from django.http import HttpResponse , HttpResponseRedirect, Http404
-from .models import Post, Author, PostView
+from .models import Post, Author, PostView,Team,TeamView
 from django.template.loader import get_template
 from django.template import Context, Template,RequestContext
 import datetime
@@ -34,11 +34,13 @@ class IndexView(View):
         projects = Post.objects.filter(featured=True,categories__title__exact = "project").order_by('-timestamp')[0:3]
         sliderview= Post.objects.filter(slider=True ).order_by('-timestamp')[0:3]
         latest = Post.objects.order_by('-timestamp')[0:3]   
+        campus=Post.objects.filter(featured=True,categories__title__exact = "campus").order_by('-timestamp')[0:3]
         context = {
             'programs': programs,
             'projects':projects,
             'latest': latest,
             'sliderview':sliderview,
+            'campus':campus,
         }
 
         return render(request, 'index.html', context)
@@ -278,7 +280,7 @@ def contact(request):
     return render(request,'contact.html', {})
 
 def team(request):
-    team = Post.objects.filter(categories__title__exact = "team").order_by('-timestamp')   
+    team = Team.objects.filter(categories__title__exact = "impact").order_by('-timestamp')   
     context = {
         'team': team,
     }

@@ -7,7 +7,10 @@ class EmailSignupForm(forms.ModelForm):
         "type": "email",
         "name": "email",
         "id": "email",
-        "placeholder": "Type your email address",
+        "placeholder": "Enter your email address",
+        "class" :"form-control fh5co_footer_text_box",
+        "aria-describedby":"basic-addon1",
+
     }), label="")
 
     class Meta:

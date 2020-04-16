@@ -12,9 +12,12 @@ urlpatterns = [
     path('about/',views.about, name='about'),
     path('contact/',views.contact, name='contact'),
     path('team/',views.team, name='team'),
+    path('impact/',views.impact, name='impact'),
+    path('faqs/',views.faqs, name='faqs'),
     path(r'pay/',views.pay, name='pay'),
     path(r'success/',views.success, name='success'),
     path(r'failure/',views.failure, name='failure'),
+    path('subscribe/',email_list_signup, name='subscribe'),
 
     # # # # #path('email-signup/', email_list_signup, name='email-list-signup'),
     # # # # # path('create/', post_create, name='post-create'),

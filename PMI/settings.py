@@ -32,7 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
-    'src.apps.SrcConfig',
+    'src.apps.SrcConfig',   
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -41,10 +41,11 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'subscribe',
 
-   
+    #'crispy_forms',
     'tinymce',
 ]
 
+#RISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -164,7 +165,9 @@ TINYMCE_DEFAULT_CONFIG = {
     'statusbar': True,
 }
 
-MAILCHIMP_API_KEY = ''
-MAILCHIMP_DATA_CENTER = ''
-MAILCHIMP_EMAIL_LIST_ID = ''
+MAILCHIMP_API_KEY = '2fe6604a1b54472347c2badc14b84283-us19'
+MAILCHIMP_DATA_CENTER = 'us19'
+MAILCHIMP_EMAIL_LIST_ID = '2ed7e105a9'
 
+
+SITE_ID = 1

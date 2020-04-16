@@ -73,15 +73,22 @@
                 <a href="#" class="footer_img_post_6"><img src="{% static 'images/IMG_3274.JPG' %}" alt="img" /></a>
             </div>
         </div>
+        <form action="subscribe/" method="POST">
         <div class="row justify-content-center pt-2 pb-4">
+            
+            
             <div class="col-12 col-md-8 col-lg-7 ">
                 <div class="input-group">
+                    {% csrf_token %}
                     <span class="input-group-addon fh5co_footer_text_box" id="basic-addon1"><i class="fa fa-envelope"></i></span>
-                    <input type="text" class="form-control fh5co_footer_text_box" placeholder="Enter your email..." aria-describedby="basic-addon1">
-                    <a href="#" class="input-group-addon fh5co_footer_subcribe" id="basic-addon12"> <i class="fa fa-paper-plane-o"></i>&nbsp;&nbsp;Subscribe</a>
+                        {{form}}
+                    <button type="submit" class="input-group-addon fh5co_footer_subcribe" id="basic-addon12"> <i class="fa fa-paper-plane-o"></i>Subscribe</button>
+                
                 </div>
             </div>
+      
         </div>
+        </form>
     </div>
 </div>
 <div class="container-fluid fh5co_footer_right_reserved">

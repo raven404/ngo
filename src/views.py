@@ -16,6 +16,9 @@ from django.contrib import messages
 from subscribe.forms import EmailSignupForm
 from subscribe.models import Signup
 
+import datetime
+now = datetime.datetime.now()
+
 # Create your views here.
 
 form = EmailSignupForm()
@@ -35,12 +38,15 @@ class IndexView(View):
         sliderview= Post.objects.filter(slider=True ).order_by('-timestamp')[0:3]
         latest = Post.objects.order_by('-timestamp')[0:3]   
         campus=Post.objects.filter(featured=True,categories__title__exact = "campus").order_by('-timestamp')[0:3]
+        value=now
         context = {
             'programs': programs,
             'projects':projects,
             'latest': latest,
             'sliderview':sliderview,
             'campus':campus,
+            'value':value,
+            'form':form
         }
 
         return render(request, 'index.html', context)
@@ -274,19 +280,36 @@ def post_delete(request, id):
 #     return render(request,'blog.html', {})
 
 def about(request):
-    return render(request,'about.html', {})
+    value=now
+    return render(request,'about.html', {'value':value,})
 
 def contact(request):
-    return render(request,'contact.html', {})
+    value=now
+    return render(request,'contact.html', {'value':value,})
 
 def team(request):
-    team = Team.objects.filter(categories__title__exact = "impact").order_by('-timestamp')   
+    team = Team.objects.filter(categories__title__exact = "team").order_by('-timestamp')   
+    value=now
     context = {
         'team': team,
+        'value':value,
     }
 
     return render(request,'team.html', context)
 
+def impact(request):
+    impact = Team.objects.filter(categories__title__exact = "impact").order_by('-timestamp')   
+    value=now
+    context = {
+        'impact': impact,
+        'value':value,
+    }
+
+    return render(request,'impact.html', context)
+
+def faqs(request):
+    value=now
+    return render(request,'FAQs.html', {'value':value,})
 
 
 #PAYMENT GATEEWAY     

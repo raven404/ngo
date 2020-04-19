@@ -46,7 +46,7 @@ class IndexView(View):
             'sliderview':sliderview,
             'campus':campus,
             'value':value,
-            'form':form
+            'form'  :form
         }
 
         return render(request, 'index.html', context)
@@ -61,74 +61,129 @@ class IndexView(View):
 
 
 
-def index(request):
-    programs = Post.objects.filter(featured=True,categories__title__exact = "program").order_by('-timestamp')[0:3]
-    projects = Post.objects.filter(featured=True,categories__title__exact = "project").order_by('-timestamp')[0:3]
-    sliderview= Post.objects.filter(slider=True ).order_by('-timestamp')[0:3]
-    latest = Post.objects.order_by('-timestamp')[0:3]   
+# def index(request):
+#     programs = Post.objects.filter(featured=True,categories__title__exact = "program").order_by('-timestamp')[0:3]
+#     projects = Post.objects.filter(featured=True,categories__title__exact = "project").order_by('-timestamp')[0:3]
+#     sliderview= Post.objects.filter(slider=True ).order_by('-timestamp')[0:3]
+#     latest = Post.objects.order_by('-timestamp')[0:3]   
 
-    if request.method == "POST": 
-        email = request.POST["email"]
-        new_signup = Signup()
-        new_signup.email = email
-        new_signup.save()
+#     if request.method == "POST": 
+#         email = request.POST["email"]
+#         new_signup = Signup()
+#         new_signup.email = email
+#         new_signup.save()
 
         
-    context = {
-        'programs': programs,
-        'projects':projects,
-        'latest': latest,
-        'sliderview':sliderview,
-    }
+#     context = {
+#         'programs': programs,
+#         'projects':projects,
+#         'latest': latest,
+#         'sliderview':sliderview,
+#     }
 
-    return render(request,'index.html', context)
+#     return render(request,'index.html', context)
 
-class PostListView(ListView):
+class ProgramListView(ListView):
     form = EmailSignupForm()
-    model = Post
-    template_name = 'blog.html'
+    queryset=Post.objects.filter(categories__title__exact = "program").order_by('timestamp')
+    template_name = 'program.html'
     context_object_name = 'queryset'
-    paginate_by = 1
+    paginate_by = 3
 
     def get_context_data(self, **kwargs):
         #category_count = get_category_count()
-        most_recent = Post.objects.order_by('-timestamp')[:3]
+        #posts=Post.objects.filter(categories__title__exact = "program").order_by('timestamp')
+        #most_recent = Post.objects.order_by('-timestamp')[:3]
         context = super().get_context_data(**kwargs)
-        context['most_recent'] = most_recent
+        #context['most_recent'] = most_recent
         context['page_request_var'] = "page"
         #context['category_count'] = category_count
         context['form'] = self.form
+        #context['posts']=posts
+        header="PROGRAMS"
+        context['header']=header
+        value=now
+        context['value']=value
         return context
 
 
-def post_list(request):
-    #category_count = get_category_count()
-    most_recent = Post.objects.order_by('-timestamp')[:3]
-    post_list = Post.objects.all()
-    paginator = Paginator(post_list, 4)
-    page_request_var = 'page'
-    page = request.GET.get(page_request_var)
-    try:
-        paginated_queryset = paginator.page(page)
-    except PageNotAnInteger:
-        paginated_queryset = paginator.page(1)
-    except EmptyPage:
-        paginated_queryset = paginator.page(paginator.num_pages)
 
-    context = {
-        'queryset': paginated_queryset,
-        'most_recent': most_recent,
-        'page_request_var': page_request_var,
-        #'category_count': category_count,
-        'form': form
-    }
-    return render(request, 'blog.html', context)
+class ProjectListView(ListView):
+    form = EmailSignupForm()
+    queryset=Post.objects.filter(categories__title__exact = "project").order_by('timestamp')
+    template_name = 'program.html'
+    context_object_name = 'queryset'
+    paginate_by = 3
+
+    def get_context_data(self, **kwargs):
+        #category_count = get_category_count()
+        #posts=Post.objects.filter(categories__title__exact = "program").order_by('timestamp')
+        #most_recent = Post.objects.order_by('-timestamp')[:3]
+        context = super().get_context_data(**kwargs)
+        #context['most_recent'] = most_recent
+        context['page_request_var'] = "page"
+        #context['category_count'] = category_count
+        context['form'] = self.form
+        #context['posts']=posts
+        header="PROJECTS"
+        context['header']=header
+        value=now
+        context['value']=value
+        return context
+
+
+class CampusListView(ListView):
+    form = EmailSignupForm()
+    queryset=Post.objects.filter(categories__title__exact = "campus").order_by('timestamp')
+    template_name = 'program.html'
+    context_object_name = 'queryset'
+    paginate_by = 3
+
+    def get_context_data(self, **kwargs):
+        #category_count = get_category_count()
+        #posts=Post.objects.filter(categories__title__exact = "program").order_by('timestamp')
+        #most_recent = Post.objects.order_by('-timestamp')[:3]
+        context = super().get_context_data(**kwargs)
+        #context['most_recent'] = most_recent
+        context['page_request_var'] = "page"
+        #context['category_count'] = category_count
+        context['form'] = self.form
+        #context['posts']=posts
+        header="CAMPUS"
+        context['header']=header
+        value=now
+        context['value']=value
+        return context
+
+# def post_list(request):
+#     #category_count = get_category_count()
+#     most_recent = Post.objects.order_by('-timestamp')[:3]
+#     post_list = Post.objects.all()
+#     paginator = Paginator(post_list, 4)
+#     page_request_var = 'page'
+#     page = request.GET.get(page_request_var)
+#     try:
+#         paginated_queryset = paginator.page(page)
+#     except PageNotAnInteger:
+#         paginated_queryset = paginator.page(1)
+#     except EmptyPage:
+#         paginated_queryset = paginator.page(paginator.num_pages)
+
+#     context = {
+#         'queryset': paginated_queryset,
+#         'most_recent': most_recent,
+#         'page_request_var': page_request_var,
+#         #'category_count': category_count,
+#         'form': form
+#     }
+#     return render(request, 'blog.html', context)
 
 class PostDetailView(DetailView):
     model = Post
     template_name = 'post.html'
     context_object_name = 'post'
-    form = CommentForm()
+    comment = CommentForm()
+    form = EmailSignupForm()
 
     def get_object(self):
         obj = super().get_object()
@@ -147,6 +202,9 @@ class PostDetailView(DetailView):
         context['page_request_var'] = "page"
         #context['category_count'] = category_count
         context['form'] = self.form
+        context['comment'] = self.comment
+        value=now
+        context['value']=value
         return context
 
     def post(self, request, *args, **kwargs):

@@ -68,12 +68,12 @@ class Post(models.Model):
 
 
     def get_absolute_url(self):
-        return reverse('post-detail', kwargs={
+        return reverse('src:post-detail', kwargs={
             'pk': self.pk
         })
 
     def get_update_url(self):
-        return reverse('post-update', kwargs={
+        return reverse('src:post-update', kwargs={
             'pk': self.pk
         })
 

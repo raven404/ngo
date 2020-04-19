@@ -24,17 +24,17 @@
                     {% endfor %}
                   </div>
                   <div>
-                    <a href="{% url 'src:post-update' pk=post.pk %}">Update</a>
+                    <a href="{% url 'src:post-update' pk=post.pk %}">Update</a>&nbsp 
                     <a href="{% url 'src:post-delete' pk=post.pk %}">Delete</a>
                   </div>
                 </div>
-                <h1>{{ post.title }}<a href="#"><i class="fa fa-bookmark-o"></i></a></h1>
+                <h1>{{ post.title }}&nbsp <a href="#"><i class="fa fa-bookmark-o"></i></a></h1>
                 <div class="post-footer d-flex align-items-center flex-column flex-sm-row"><a href="#" class="author d-flex align-items-center flex-wrap">
-                    <div class="avatar"><img src="{{ post.author.profile_picture.url }}" alt="..." class="img-fluid"></div>
-                    <div class="title"><span>{{ post.author.user.username }}</span></div></a>
+                    <img src="{{ post.author.profile_picture.url }}"  alt="..."class="rounded-circle"  width="50" height="50">&nbsp&nbsp
+                    <div class="title"><span>{{ post.author.user.username }}</span></div></a>&nbsp &nbsp
                   <div class="d-flex align-items-center flex-wrap">       
-                    <div class="date"><i class="icon-clock"></i> {{ post.timestamp|timesince }} ago</div>
-                    <div class="views"><i class="icon-eye"></i> {{ post.view_count }}</div>
+                    <div class="date"><i class="icon-clock"></i> {{ post.timestamp|timesince }}</div>&nbsp
+                    <div class="views"><i class="icon-eye"></i> {{ post.view_count }}</div>&nbsp
                     <div class="comments meta-last"><i class="icon-comment"></i>{{ post.comment_count }}</div>
                   </div>
                 </div>
@@ -69,7 +69,7 @@
                       <div class="user d-flex align-items-center">
                         <div class="image">
                           {% if comment.user.author %}
-                          <img src="{{ comment.user.author.profile_picture.url }}" alt="..." class="img-fluid rounded-circle">
+                          <img src="{{ comment.user.author.profile_picture.url }}"  alt="..." class="rounded-circle"  width="25" height="25">
                           {% else %}
                           <img src="{% static 'img/user.svg' %}" alt="..." class="img-fluid rounded-circle">
                           {% endif %}

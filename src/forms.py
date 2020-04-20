@@ -10,15 +10,28 @@ class TinyMCEWidget(TinyMCE):
 
 class PostForm(forms.ModelForm):
     content = forms.CharField(
-        widget=TinyMCEWidget(
-            attrs={'required': False, 'cols': 30, 'rows': 10}
-        )
-    )
+                                widget=TinyMCEWidget(
+                                                    attrs={
+                                                            'required': False,
+                                                            'cols': 30,
+                                                            'rows': 20,
+                                                        }
+                                            )
+                            )
 
     class Meta:
         model = Post
-        fields = ('title', 'overview', 'content', 'thumbnail', 
-        'categories', 'featured', 'previous_post', 'next_post')
+        fields = (
+                    'title', 
+                    'overview', 
+                    'content', 
+                    'thumbnail', 
+                    'categories',
+                    'featured',
+                    'slider',
+                    'previous_post',
+                    'next_post'
+                )
 
 
 class CommentForm(forms.ModelForm):

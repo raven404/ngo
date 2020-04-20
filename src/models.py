@@ -78,7 +78,7 @@ class Post(models.Model):
         })
 
     def get_delete_url(self):
-        return reverse('post-delete', kwargs={
+        return reverse('src:post-delete', kwargs={
             'pk': self.pk
         })
 

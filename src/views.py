@@ -258,7 +258,7 @@ class PostCreateView(CreateView):
     def form_valid(self, form):
         form.instance.author = get_author(self.request.user)
         form.save()
-        return redirect(reverse("post-detail", kwargs={
+        return redirect(reverse("src:post-detail", kwargs={
             'pk': form.instance.pk
         }))
 

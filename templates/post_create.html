@@ -1,17 +1,33 @@
 {% extends 'base.html' %}
-{% load crispy_forms_tags %}
+
 
 {% block content %}
+<div class="container-fluid pb-4 pt-4 paddding">
+    <div class="container paddding">
+        <div class="row mx-0">
+            <div>
+                <div class="fh5co_heading fh5co_heading_border_bottom py-2 mb-4" id="head">{{ title }} an article</div>
+            </div>
+            <div class="row pb-4" style="padding-top:15px">
+                <div class="col-md-5">
+                    <div class="fh5co_hover_news_img">
+                        {{ form.media }}
+                        
+                        <form method="POST" action="." enctype="multipart/form-data">
 
-<div class="col-4 offset-4 mb-5 mt-5">
-<h3>{{ title }} an article</h3>
-{{ form.media }}
-<form method="POST" action="." enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form|crispy }}
-    <button class="btn btn-primary" type="submit">Submit</button>
-</form>
+                            {% csrf_token %}
+                            {{ form.as_p}}
+                            <button class="btn btn-primary" type="submit">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+                
 
+            
+        </div>
+    </div>
 </div>
+
 
 {% endblock content %}

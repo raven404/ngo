@@ -11,15 +11,15 @@
                         <div class="fh5co_heading fh5co_heading_border_bottom py-2 mb-4" id="head">{{header}}</div>
                     </div>
                     {% for post in queryset %}
-                    <div class="row pb-4" style="padding-top: 60px">
+                    <div class="row pb-4" style="padding-top:15px">
                         <div class="col-md-5">
                             <div class="fh5co_hover_news_img">
-                                <div class="fh5co_news_img"><a href="{{ post.get_absolute_url }}"><img src="{{ post.thumbnail.url }}" alt="..." class="img-fluid"></a></div>
-                                <div></div>
+                                <div class="fh5co_news_img"><a href="{{ post.get_absolute_url }}"><img src="{{ post.thumbnail.url }}" alt="..." class="img-fluid" id="titleimg"></a></div>
+                            
                             </div>
                             <div class="post-meta d-flex justify-content-between">
                                 {% comment %} <div class="date meta-last">20 May | 2016</div> {% endcomment %}
-                                <div class="category">
+                                <div class="category" style="padding-top:7px ;padding-bottom:10px;">
                                 {% for cat in post.categories.all %}
                                 <a href="#">{{ cat }}</a>
                                 {% endfor %}
@@ -27,19 +27,19 @@
                               </div>
                         </div>
                         <div class="col-md-7 animate-box">
-                            <a href="{{ post.get_absolute_url }}" class="fh5co_magna py-2">{{ post.title }}<br>
+                            <a href="{{ post.get_absolute_url }}" class="fh5co_magna py-2" id="nametag">{{ post.title }}<br>
                             </a>
 
-                            <div class="fh5co_consectetur" style="text-align: justify">{{ post.overview }} </div>
+                            <div class="fh5co_consectetur" style="text-align: justify" id="overview">{{ post.overview }} </div>
                         </div>
                         <footer class="post-footer d-flex align-items-center">
                             <a href="#" class="author d-flex align-items-center flex-wrap"></br>
-                                &nbsp; &nbsp;&nbsp; <img src="{{ post.author.profile_picture.url }}" alt="..."class="rounded-circle"  width="25" height="25">
-                              <div class="title">&nbsp;<span>{{ post.author.user.username }}&nbsp;</span></div>
+                                &nbsp; &nbsp;&nbsp; <img src="{{ post.author.profile_picture.url }}" alt="..."class="rounded-circle"  width="30" height="30">
+                              <div class="title" style="padding-left: 9px ;">&nbsp;<span>{{ post.author.user.username }}</span></div>
                             </a>
-                            <div class="date"><i class="icon-clock"></i>{{ post.timestamp.date }} &nbsp;</div>
-                            <div class="views"><i class="icon-eye"></i> {{ post.view_count }}</div>&nbsp
-                            <div class="comments meta-last"><i class="icon-comment"></i>{{ post.comment_count }}</div>
+                            <div class="date"><i class="icon-clock" style="padding-left:10px ;"></i>{{ post.timestamp.date }}&nbsp &nbsp;</div>
+                            <div class="views"><i class="fa fa-eye" aria-hidden="true"></i>&nbsp{{ post.view_count }}</div>&nbsp&nbsp&nbsp
+                            <div class="comments meta-last"><i class="fa fa-comments" aria-hidden="true"></i>&nbsp{{ post.comment_count }}</div>
                           </footer>
                     </div>
                     {% endfor %}

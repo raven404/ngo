@@ -35,12 +35,13 @@ class PostForm(forms.ModelForm):
 
 
 class CommentForm(forms.ModelForm):
-    content = forms.CharField(widget=forms.Textarea(attrs={
+    content = forms.CharField(widget=forms.TextInput(attrs={
         'class': 'form-control',
         'placeholder': 'Type your comment',
         'id': 'usercomment',
         'rows': '4'
-    }))
+    }), label="")
+
     class Meta:
         model = Comment
         fields = ('content', )

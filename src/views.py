@@ -17,9 +17,12 @@ from subscribe.forms import EmailSignupForm
 from subscribe.models import Signup
 
 import datetime
-now = datetime.datetime.now()
+
 
 # Create your views here.
+
+latest = Post.objects.order_by('-timestamp')[0:9]
+now = datetime.datetime.now()
 
 form = EmailSignupForm()
 
@@ -36,17 +39,15 @@ class IndexView(View):
         programs = Post.objects.filter(featured=True,categories__title__exact = "program").order_by('-timestamp')[0:3]
         projects = Post.objects.filter(featured=True,categories__title__exact = "project").order_by('-timestamp')[0:3]
         sliderview= Post.objects.filter(slider=True ).order_by('-timestamp')[0:3]
-        latest = Post.objects.order_by('-timestamp')[0:3]   
         campus=Post.objects.filter(featured=True,categories__title__exact = "campus").order_by('-timestamp')[0:3]
-        value=now
         context = {
-            'programs': programs,
-            'projects':projects,
-            'latest': latest,
-            'sliderview':sliderview,
-            'campus':campus,
-            'value':value,
-            'form'  :form
+            'programs'   : programs,
+            'projects'   : projects,
+            'sliderview' : sliderview,
+            'campus'     : campus,
+            'latest'     : latest,
+            'now'        : now,
+            'form'       : form
         }
 
         return render(request, 'index.html', context)
@@ -65,15 +66,15 @@ class IndexView(View):
 #     programs = Post.objects.filter(featured=True,categories__title__exact = "program").order_by('-timestamp')[0:3]
 #     projects = Post.objects.filter(featured=True,categories__title__exact = "project").order_by('-timestamp')[0:3]
 #     sliderview= Post.objects.filter(slider=True ).order_by('-timestamp')[0:3]
-#     latest = Post.objects.order_by('-timestamp')[0:3]   
+#     latest = Post.objects.order_by('-timestamp')[0:3]
 
-#     if request.method == "POST": 
+#     if request.method == "POST":
 #         email = request.POST["email"]
 #         new_signup = Signup()
 #         new_signup.email = email
 #         new_signup.save()
 
-        
+
 #     context = {
 #         'programs': programs,
 #         'projects':projects,
@@ -102,8 +103,8 @@ class ProgramListView(ListView):
         #context['posts']=posts
         header="PROGRAMS"
         context['header']=header
-        value=now
-        context['value']=value
+        context['now']=now
+        context['latest']=latest
         return context
 
 
@@ -127,8 +128,8 @@ class ProjectListView(ListView):
         #context['posts']=posts
         header="PROJECTS"
         context['header']=header
-        value=now
-        context['value']=value
+        context['now']=now
+        context['latest']=latest
         return context
 
 
@@ -151,8 +152,8 @@ class CampusListView(ListView):
         #context['posts']=posts
         header="CAMPUS"
         context['header']=header
-        value=now
-        context['value']=value
+        context['now']=now
+        context['latest']=latest
         return context
 
 # def post_list(request):
@@ -182,8 +183,10 @@ class PostDetailView(DetailView):
     model = Post
     template_name = 'post.html'
     context_object_name = 'post'
-    comment = CommentForm()
-    form = EmailSignupForm()
+    # form_class={
+    #             'comment': CommentForm(),
+    #             'form'   : EmailSignupForm()
+    #             }
 
     def get_object(self):
         obj = super().get_object()
@@ -201,20 +204,20 @@ class PostDetailView(DetailView):
         context['most_recent'] = most_recent
         context['page_request_var'] = "page"
         #context['category_count'] = category_count
-        context['form'] = self.form
-        context['comment'] = self.comment
-        value=now
-        context['value']=value
+        context['comment'] = CommentForm()
+        context['form'] =form
+        context['now']=now
+        context['latest']=latest
         return context
 
     def post(self, request, *args, **kwargs):
-        form = CommentForm(request.POST)
-        if form.is_valid():
+        comment = CommentForm(request.POST)
+        if comment.is_valid():
             post = self.get_object()
-            form.instance.user = request.user
-            form.instance.post = post
-            form.save()
-            return redirect(reverse("post-detail", kwargs={
+            comment.instance.user = request.user
+            comment.instance.post = post
+            comment.save()
+            return redirect(reverse("src:post-detail", kwargs={
                 'pk': post.pk
             }))
 
@@ -253,6 +256,8 @@ class PostCreateView(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Create'
+        context['now']=now
+        context['latest']=latest
         return context
 
     def form_valid(self, form):
@@ -288,12 +293,14 @@ class PostUpdateView(UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Update'
+        context['now']=now
+        context['latest']=latest
         return context
 
     def form_valid(self, form):
         form.instance.author = get_author(self.request.user)
         form.save()
-        return redirect(reverse("post-detail", kwargs={
+        return redirect(reverse("src:post-detail", kwargs={
             'pk': form.instance.pk
         }))
 
@@ -322,14 +329,14 @@ def post_update(request, id):
 
 class PostDeleteView(DeleteView):
     model = Post
-    success_url = '/blog'
+    success_url = '/program'
     template_name = 'post_confirm_delete.html'
 
 
 def post_delete(request, id):
     post = get_object_or_404(Post, id=id)
     post.delete()
-    return redirect(reverse("post-list"))
+    return redirect(reverse("src:post-list"))
 
 
 
@@ -343,40 +350,42 @@ def about(request):
 
 def contact(request):
     value=now
-    return render(request,'contact.html', {'value':value,})
+    return render(request,'contact.html', {'value':value, 'latest':latest})
 
 def team(request):
-    team = Team.objects.filter(categories__title__exact = "team").order_by('-timestamp')   
+    team = Team.objects.filter(categories__title__exact = "team").order_by('-timestamp')
     value=now
     context = {
         'team': team,
         'value':value,
+        'latest':latest
     }
 
     return render(request,'team.html', context)
 
 def impact(request):
-    impact = Team.objects.filter(categories__title__exact = "impact").order_by('-timestamp')   
+    impact = Team.objects.filter(categories__title__exact = "impact").order_by('-timestamp')
     value=now
     context = {
         'impact': impact,
         'value':value,
+        'latest':latest
     }
 
     return render(request,'impact.html', context)
 
 def faqs(request):
     value=now
-    return render(request,'FAQs.html', {'value':value,})
+    return render(request,'FAQs.html', {'value':value,'latest':latest})
 
 
-#PAYMENT GATEEWAY     
+#PAYMENT GATEEWAY
 
 def pay(request):
-    MERCHANT_KEY = "BXpOVCvl"
-    key="BXpOVCvl"                  
-    SALT = "0teFcBB5eu"
-    PAYU_BASE_URL = "https://sandboxsecure.payu.in/_payment"
+    MERCHANT_KEY = "CZfr57vf"
+    key="CZfr57vf"
+    SALT = "KRTcALJxmZ"
+    PAYU_BASE_URL = "https://secure.payu.in"
     action = ''
     posted={}
     # Merchant Key and Salt provided y the PayU.
@@ -400,7 +409,7 @@ def pay(request):
     hashh=hashlib.sha512((hash_string).encode('utf-8')).hexdigest().lower()
     action = PAYU_BASE_URL
     if(posted.get("key")!=None and posted.get("txnid")!=None and posted.get("productinfo")!=None and posted.get("firstname")!=None and posted.get("email")!=None):
-        return render(request,'current_datetime.html',{"posted":posted,"hashh":hashh,"MERCHANT_KEY":MERCHANT_KEY,"txnid":txnid,"hash_string":hash_string,"action":"https://sandboxsecure.payu.in/_payment" })
+        return render(request,'current_datetime.html',{"posted":posted,"hashh":hashh,"MERCHANT_KEY":MERCHANT_KEY,"txnid":txnid,"hash_string":hash_string,"action":"https://secure.payu.in" })
     else:
         return render(request,'current_datetime.html',{"posted":posted,"hashh":hashh,"MERCHANT_KEY":MERCHANT_KEY,"txnid":txnid,"hash_string":hash_string,"action":"." })
 

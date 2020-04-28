@@ -116,7 +116,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12 fh5co_mediya_center" style="text-align:left"><a href="#" class="color_fff fh5co_mediya_setting"><i
-                class="fa fa-clock-o"></i>&nbsp;&nbsp;&nbsp;{{value|date:"D d M Y" }}&nbsp&nbsp&nbsp&nbsp</a>
+                class="fa fa-clock-o"></i>&nbsp;&nbsp;&nbsp;{{now|date:"D d M Y" }}&nbsp&nbsp&nbsp&nbsp</a>
                 <div class="d-inline-block fh5co_trading_posotion_relative"><a href="#" class="treding_btn" >&nbsp;Passion Movement International&nbsp;</a>
                     <div class="fh5co_treding_position_absolute"></div>
                 </div>
@@ -143,6 +143,34 @@
                         <div class="fh5co_verticle_middle"><i class="fa fa-facebook"></i></div>
                     </a>
                 </div>
+                {% if request.user.is_authenticated %}
+                    <div class="text-center d-inline-block">
+                        <a href="/accounts/logout"  class="fh5co_display_table">
+                            <div class="fh5co_verticle_middle" id="logout"><i class="fa fa-sign-out"></i></div>
+                        </a>
+                    </div>
+                                    
+                {%else%}
+                    <div class="text-center d-inline-block">
+                        <a href="/accounts/login" class="fh5co_display_table">
+                            <div class="fh5co_verticle_middle" id="login"><i class="fa fa-sign-in"></i></div>
+                        </a>
+                    </div>
+                {%endif%}
+                
+                                            <!--            
+<script>        
+    function myFunction() {
+      
+      var txt = prompt("You are logged out !!!");
+      var txt = prompt("You are logged in !!!");
+    
+      document.getElementById("logout").innerHTML = txt;
+      document.getElementById("login").innerHTML = txt;
+    }
+    </script>
+      -->                                   
+
                 <div style="">
                 <h1 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; text-align: left;"><b>Passion Movement International</b></h1>
                 </div>
@@ -228,10 +256,51 @@
                             <li class="nav-item ">
                                 <a class="nav-link" href="/create" id="dropdownMenuButton2">Create <span class="sr-only">(current)</span></a>
                             </li>
-                            {%endif%}
+                            {%endif %}
 
                 </ul>
             </div>
         </nav>
     </div>
 </div>
+
+
+  
+  <!-- Modal HTML
+  <div id="myModal" class="modal fade">
+    <div class="modal-dialog modal-login">
+        <div class="modal-content">
+           
+  
+        
+    <form action="/examples/actions/confirmation.php" method="post">
+      {% csrf_token %}
+                <div class="modal-header">
+                    <h4 class="modal-title">Login</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" class="form-control" required="required">
+                    </div>
+                    <div class="form-group">
+                        <div class="clearfix">
+                            <label>Password</label>
+                            <a href="#" class="pull-right text-muted"><small>Forgot?</small></a>
+                        </div>
+  
+                        <input type="password" class="form-control" required="required">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <label class="checkbox-inline pull-left"><input type="checkbox"> Remember me</label>
+                    <input type="submit" class="btn btn-primary pull-right" value="Login">
+                </div>
+            </form>
+  
+  
+  
+        </div>
+    </div>
+  </div> -->

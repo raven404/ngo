@@ -49,8 +49,11 @@
             </div>
             <div class="col-12 col-md-5 col-lg-3 position_footer_relative">
                 <div class="footer_main_title py-3"> Most Viewed Posts</div>
-                <div class="footer_makes_sub_font"> feb 3, 2020</div>
-                <a href="#" class="footer_post pb-4"> Pathshala</a>
+                {%for obj in latest%}
+
+                    <div class="footer_makes_sub_font"> {{obj.timestamp.date}}</div>
+                    <a href="{{ obj.get_absolute_url }}" class="footer_post pb-4"> {{obj.title}}</a>
+                {%endfor%}
                 <div class="footer_makes_sub_font"> jan 31, 2020</div>
                 <a href="#" class="footer_post pb-4"> Chat over Coffee </a>
                 <div class="footer_makes_sub_font"> mar 13, 2020</div>
@@ -60,17 +63,12 @@
                 <div class="footer_position_absolute"><img src="{% static 'images/footer_sub_tipik.png' %}" alt="img" class="width_footer_sub_img" /></div>
             </div>
             <div class="col-12 col-md-12 col-lg-4 ">
-                <div class="footer_main_title py-3"> Last Modified Posts</div>
-                
-                <a href="#" class="footer_img_post_6"><img src="{% static 'images/IMG_0015.JPG' %}" alt="img" /></a>
-                <a href="#" class="footer_img_post_6"><img src="{% static 'images/IMG_0058.JPG' %}" alt="img" /></a>
-                <a href="#" class="footer_img_post_6"><img src="{% static 'images/IMG_0224.JPG' %}" alt="img" /></a>
-                <a href="#" class="footer_img_post_6"><img src="{% static 'images/IMG_0416.JPG' %}" alt="img" /></a>
-                <a href="#" class="footer_img_post_6"><img src="{% static 'images/IMG_1657.JPG' %}" alt="img" /></a>
-                <a href="#" class="footer_img_post_6"><img src="{% static 'images/IMG_3548.JPG' %}" alt="img" /></a>
-                <a href="#" class="footer_img_post_6"><img src="{% static 'images/IMG_3238.JPG' %}" alt="img" /></a>
-                <a href="#" class="footer_img_post_6"><img src="{% static 'images/IMG_0058.JPG' %}" alt="img" /></a>
-                <a href="#" class="footer_img_post_6"><img src="{% static 'images/IMG_3274.JPG' %}" alt="img" /></a>
+                <div class="footer_main_title py-3"> Latest posts</div>
+
+                {%for obj in latest%}
+
+                    <a href="{{ obj.get_absolute_url }}" class="footer_img_post_6"><img src="{{obj.thumbnail.url}}" alt="img" /></a>
+                {%endfor%}
             </div>
         </div>
         <form action="subscribe/" method="POST">

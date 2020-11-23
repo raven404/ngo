@@ -1,8 +1,12 @@
-<!-- {% extends 'base.html' %} -->
+{% extends 'base.html' %} {% load static %} {%block content%}
+<body style="background: #F7F8F8;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #ACBB78, #F7F8F8);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #ACBB78, #F7F8F8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
+">
+    
 
-<!-- {% block content %} -->
-<div class="container-fluid pb-4 pt-4 paddding">
+<div class="container-fluid pb-4 pt-4 paddding" style="">
     <div class="container paddding">
         <div class="row mx-0">
             <div>
@@ -12,21 +16,20 @@
                 <div class="col-md-5">
                     <div class="fh5co_hover_news_img">
                         {{ form.media }}
-                        
+
                         <form method="POST" action="." enctype="multipart/form-data">
-                            {% csrf_token %}
-                            {{ form.as_p}}
+                            {% csrf_token %} {{ form.as_p}}
                             <button class="btn btn-primary" type="submit">Submit</button>
                         </form>
                     </div>
                 </div>
             </div>
-                
 
-            
+
+
         </div>
     </div>
 </div>
+</body>
 
-
-<!-- {% endblock content %} -->
+{% endblock content %}

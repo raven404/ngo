@@ -1,0 +1,419 @@
+{% extends 'base.html' %}
+{% load static %}
+{%block content%}
+
+
+<div class="container-fluid" style="padding-top: 20px;">
+
+    {% for obj in community%}
+    <div class="container">
+        <div class="">
+            <a href="#" id="Heading">
+                <h1> <b>{{obj.title|safe}}</b> </h1>
+            </a>
+        </div>
+
+        <div class="container-fluid pb-4 pt-5">
+            <div class="container animate-box">
+                <!--  <div>
+                        <div class="fh5co_heading fh5co_heading_border_bottom py-2 mb-4">
+                            <a href="#" id="Heading">
+                                <h1> <b>Badabagh Community</b> </h1>
+                            </a>
+                        </div>
+                    </div> -->
+                <div class="owl-carousel owl-theme" style="align-items: center" id="slider2">
+                    {% for obj in pics %}
+
+                    <div class="item px-2">
+                        <div class="fh5co_hover_news_img">
+                            <div class="fh5co_news_img"><img src="{{ obj.images.url }}" alt="" /></div>
+
+                        </div>
+                    </div>
+                    {%endfor%}
+
+                </div>
+            </div>
+        </div>
+        <div>
+            {{obj.content | safe}}
+        </div>
+        <br>
+        <br>
+    </div>
+    {%endfor%}
+    <!-- {% for obj in post%}
+    <div class="container" id="{{obj.title}}">
+        <div class=" row">
+            <a href="# " id="Heading">
+                <h1> <b>{{obj.title}}</b> </h1>
+            </a>
+        </div>
+        <div class="row pb-4 ">
+            <div class=" " id="paraFont">
+                <p>
+                    {% if forloop.first|divisibleby:2 %}
+                <div class="col-md-5 " style=" height:350px;  min-width: 350px ; border-radius:350px; float: right;">
+                    {%else%}
+                    <div class="col-md-5 " style=" height:350px; min-width: 350px ; border-radius:350px;float: left; ">
+                        {%endif%}
+                        <div id="carouselExampleIndicators " class="carousel slide " data-ride="carousel ">
+                            <ol class="carousel-indicators ">
+                                {% for p in photos %}
+                                {% ifequal p.communitypost.title obj.title %}
+                                <li data-target="#carousel-example-1z" data-slide-to="{{ forloop.counter0 }}"
+                                    class="{% if forloop.counter0 == 0 %} active {% endif %}"></li>
+                                {% endifequal %}
+                                {% endfor %}
+                            </ol>
+                            <div class="carousel-inner "
+                                style="width:100%;max-width:700px;height:100% ; max-height: 700px; ">
+                                {% for p in photos%}
+                                {% ifequal p.communitypost.title obj.title %}
+                                {% if forloop.first %}
+                                <div class="carousel-item active  ">
+                                    {% else %}
+                                    <div class="carousel-item  ">
+                                        {% endif %}
+                                        <img class="d-block w-100" src="{{ p.images.url}}" style="align-items: center"
+                                            alt="{{forloop.counter0}}">
+                                    </div>
+                                </div>
+                                {% endifequal %}
+                                {% endfor %}
+                            </div>
+                            <a class="carousel-control-prev " href="#carouselExampleIndicators " role="button "
+                                data-slide="prev ">
+                                <span class="carousel-control-prev-icon " aria-hidden="true "></span>
+                                <span class="sr-only ">Previous</span>
+                            </a>
+                            <a class="carousel-control-next " href="#carouselExampleIndicators " role="button "
+                                data-slide="next ">
+                                <span class="carousel-control-next-icon " aria-hidden="true "></span>
+                                <span class="sr-only ">Next</span>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+                {{obj.content | safe}}
+            </div>
+        </div>
+    </div>
+
+    {% endfor %} -->
+    <!-- 2nd loop -->
+    {% for obj in post%}
+    <div class="container " id="{{obj.title}}">
+
+
+        <div class="row ">
+
+            <div class="row pb-4 ">
+                <div>
+                    {% if forloop.first|divisibleby:2 %}
+                    <div class="col-md-5 " id="badaR">
+                        {%else%}
+                        <div class="col-md-5 " id="badaL">
+                            {%endif%}
+
+                            <div class="" style="width:100%;max-width:700px;height:100% ; max-height: 700px; ">
+                                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel"
+                                    style="height: 500px;">
+                                    <ol class="carousel-indicators">
+                                        {% for obj in photos %}
+                                        {% if forloop.first %}
+                                        <li data-target="#carouselExampleIndicators"
+                                            data-slide-to="{{forloop.counter0}}" class="active"></li>
+                                        {% else %}
+                                        <div class="carousel-item  ">
+                                            {{obj.content|safe}}
+                                        </div>
+                                        {%endif%}
+                                        {%endfor%}
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--<div class="container " id="Summer Program ">
+            <div class="row ">
+                <a href="# " id="Heading">
+                    <h1> <b>Summer Program</b> </h1>
+                </a>
+            </div> <br>
+
+            <div class="row pb-4 ">
+
+                <div class=" " id="paraFont">
+                    <p>
+                    <div class="col-md-5 " style=" height:350px; min-width: 350px ; border-radius:350px;float: right; ">
+
+                        <div class="fh5co_hover_news_img "
+                            style="width:100%;max-width:700px;height:100% ; max-height: 700px; ">
+
+
+                            <div id="carouselExampleIndicators " class="carousel slide " data-ride="carousel ">
+                                <ol class="carousel-indicators ">
+                                    <li data-target="#carouselExampleIndicators " data-slide-to="0 " class="active ">
+                                    </li>
+                                    <li data-target="#carouselExampleIndicators " data-slide-to="1 "></li>
+                                    <li data-target="#carouselExampleIndicators " data-slide-to="2 "></li>
+                                </ol>
+                                <div class="carousel-inner "
+                                    style="width:100%;max-width:700px;height:100% ; max-height: 700px; ">
+                                    <div class="carousel-item active ">
+                                        <img class="d-block w-100 " src="images/IMG_0015.JPG "
+                                            style="align-items: center " alt="First slide ">
+                                    </div>
+                                    <div class="carousel-item ">
+                                        <img class="d-block w-100 " src="images/IMG_0065.JPG "
+                                            style="align-items: center " alt="Second slide ">
+                                    </div>
+                                    <div class="carousel-item ">
+                                        <img class="d-block w-100 " src="images/IMG_0224.JPG "
+                                            style="align-items: center " alt="Third slide ">
+                                    </div>
+                                </div>
+                                <a class="carousel-control-prev " href="#carouselExampleIndicators " role="button "
+                                    data-slide="prev ">
+                                    <span class="carousel-control-prev-icon " aria-hidden="true "></span>
+                                    <span class="sr-only ">Previous</span>
+                                </a>
+                                <a class="carousel-control-next " href="#carouselExampleIndicators " role="button "
+                                    data-slide="next ">
+                                    <span class="carousel-control-next-icon " aria-hidden="true "></span>
+                                    <span class="sr-only ">Next</span>
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>Meet Prabin: direct, engaging, swift, fun, organized and hard working - the perfect guy to
+                    lead as
+                    PMI’s campus coordinator as well as he is working as a Manager of PMI. Prabin hails from the north
+                    east
+                    state of Manipur. Having
+                    a heart and passion to help university students, he plays a vital role on PMI’s team. An easy guy to
+                    get
+                    to know, he isn’t just an encouragement to students, but a point of connection between them and PMI.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="container " id="Kids Camp ">
+            <div class="row ">
+                <a href="# " id="Heading">
+                    <h1> <b>Kids Camp</b> </h1>
+                </a>
+            </div> <br>
+
+            <div class="row pb-4 ">
+
+                <div class=" " id="paraFont">
+                    <p>
+                    <div class="col-md-5 " style=" height:350px; min-width: 350px ; border-radius:350px;float:left; ">
+
+                        <div class="fh5co_hover_news_img "
+                            style="width:100%;max-width:700px;height:100% ; max-height: 700px; ">
+
+                            <div id="carouselExampleIndicators " class="carousel slide " data-ride="carousel ">
+                                <ol class="carousel-indicators ">
+                                    <li data-target="#carouselExampleIndicators " data-slide-to="0 " class="active ">
+                                    </li>
+                                    <li data-target="#carouselExampleIndicators " data-slide-to="1 "></li>
+                                    <li data-target="#carouselExampleIndicators " data-slide-to="2 "></li>
+                                </ol>
+                                <div class="carousel-inner "
+                                    style="width:100%;max-width:700px;height:100% ; max-height: 700px; ">
+                                    <div class="carousel-item active ">
+                                        <img class="d-block w-100 " src="images/KIDS CAMP/IMG_3156.JPG "
+                                            style="align-items: center " alt="First slide ">
+                                    </div>
+                                    <div class="carousel-item ">
+                                        <img class="d-block w-100 " src="images/KIDS CAMP/IMG_3219.JPG "
+                                            style="align-items: center " alt="Second slide ">
+                                    </div>
+                                    <div class="carousel-item ">
+                                        <img class="d-block w-100 " src="images/KIDS CAMP/IMG_3238.JPG "
+                                            style="align-items: center " alt="Third slide ">
+                                    </div>
+                                </div>
+                                <a class="carousel-control-prev " href="#carouselExampleIndicators " role="button "
+                                    data-slide="prev ">
+                                    <span class="carousel-control-prev-icon " aria-hidden="true "></span>
+                                    <span class="sr-only ">Previous</span>
+                                </a>
+                                <a class="carousel-control-next " href="#carouselExampleIndicators " role="button "
+                                    data-slide="next ">
+                                    <span class="carousel-control-next-icon " aria-hidden="true "></span>
+                                    <span class="sr-only ">Next</span>
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                    Meet Prabin: direct, engaging, swift, fun, organized and hard working - the perfect guy to lead as
+                    PMI’s
+                    campus coordinator as well as he is working as a Manager of PMI. Prabin hails from the north east
+                    state
+                    of Manipur. Having a heart and passion to
+                    help university students, he plays a vital role on PMI’s team. An easy guy to get to know, he isn’t
+                    just
+                    an encouragement to students, but a point of connection between them and PMI.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="container " id="Career Counseling ">
+            <div class="row ">
+                <a href="# " id="Heading">
+                    <h1> <b>Career Counseling</b> </h1>
+                </a>
+            </div> <br>
+
+            <div class="row pb-4 ">
+
+                <div class=" " id="paraFont">
+                    <p>
+                    <div class="col-md-5 " style=" height:350px; min-width: 350px ; border-radius:350px;float: right; ">
+
+                        <div class="fh5co_hover_news_img "
+                            style="width:100%;max-width:700px;height:100% ; max-height: 700px; ">
+
+
+                            <div id="carouselExampleIndicators " class="carousel slide " data-ride="carousel ">
+                                <ol class="carousel-indicators ">
+                                    <li data-target="#carouselExampleIndicators " data-slide-to="0 " class="active ">
+                                    </li>
+                                    <li data-target="#carouselExampleIndicators " data-slide-to="1 "></li>
+                                    <li data-target="#carouselExampleIndicators " data-slide-to="2 "></li>
+                                </ol>
+                                <div class="carousel-inner "
+                                    style="width:100%;max-width:700px;height:100% ; max-height: 700px; ">
+                                    <div class="carousel-item active ">
+                                        <img class="d-block w-100 " src="images/IMG_0015.JPG "
+                                            style="align-items: center " alt="First slide ">
+                                    </div>
+                                    <div class="carousel-item ">
+                                        <img class="d-block w-100 " src="images/IMG_0065.JPG "
+                                            style="align-items: center " alt="Second slide ">
+                                    </div>
+                                    <div class="carousel-item ">
+                                        <img class="d-block w-100 " src="images/IMG_0224.JPG "
+                                            style="align-items: center " alt="Third slide ">
+                                    </div>
+                                </div>
+                                <a class="carousel-control-prev " href="#carouselExampleIndicators " role="button "
+                                    data-slide="prev ">
+                                    <span class="carousel-control-prev-icon " aria-hidden="true "></span>
+                                    <span class="sr-only ">Previous</span>
+                                </a>
+                                <a class="carousel-control-next " href="#carouselExampleIndicators " role="button "
+                                    data-slide="next ">
+                                    <span class="carousel-control-next-icon " aria-hidden="true "></span>
+                                    <span class="sr-only ">Next</span>
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                    Student life in Delhi can be very challenging and living in a city with a population of around 22
+                    million can be troublesome. Professional counselors are here to assist you to become more effective
+                    and
+                    efficient in your studies and to help you deal with
+                    the various issues of life. Special academic counseling is available for class-x and class-xii
+                    students
+                    to help them with their career choices and career decision. We respect your privacy, feel free to
+                    contact us. Counseling is
+                    free of charge (by appointment).
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="container " id="Parent 's Education">
+            <div class="row">
+                <a href="#" id="Heading">
+                    <h1><b>Parent's Education</b>
+                    </h1>
+                </a>
+            </div> <br><br>
+            <div class="row pb-4 ">
+
+                <div class=" " id="paraFont">
+                    <p>
+                    <div class="col-md-5 " style=" height:350px; min-width: 350px ; border-radius:350px;float:left; ">
+
+                        <div class="fh5co_hover_news_img "
+                            style="width:100%;max-width:700px;height:100% ; max-height: 700px; ">
+                            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                                </ol>
+                                <div class="carousel-inner"
+                                    style="width:100%;max-width:700px;height:100% ; max-height: 700px;">
+                                    <div class="carousel-item active">
+                                        <img class="d-block w-100" src="images/IMG_0015.JPG" style="align-items: center"
+                                            alt="First slide">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img class="d-block w-100" src="images/IMG_0065.JPG" style="align-items: center"
+                                            alt="Second slide">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img class="d-block w-100" src="images/IMG_0224.JPG" style="align-items: center"
+                                            alt="Third slide">
+                                    </div>
+                                </div>
+                                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
+                                    data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
+                                    data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    Parent education was started together with students of Shri Ram College of Commerce (SRCC) for one
+                    year.
+                    Now the staff and coordinates are taking care of it. The program is formulated to help parents
+                    acquire
+                    and embody parenting skills and to learn about
+                    their children's cognitive, literacy and development growth. The program gives talks on sensitive
+                    subjects like Domestic Violence, Girl Child Education, Child Marriage, Birth Control, Mensuration,
+                    Hygiene and also deals with family-related
+                    problems- Financial, Unemployment and Alcohol Addiction. The program also emphasis Mothers at Home.
+                    We
+                    provide support so that they learn the skills they will need to find employment and ensure their
+                    children grow up well and manage
+                    the family's needs. Without your contribution be it in the form of financial assistance, volunteer,
+                    or
+                    material we wouldn't be able to come this far today. And for us to keep up this, we need your
+                    continual
+                    support.
+                    </p>
+                </div>
+            </div>
+        </div> -->
+
+        </div>
+    </div>
+    {%endfor%}
+
+
+    {%endblock content%}

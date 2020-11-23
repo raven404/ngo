@@ -1,253 +1,118 @@
-{% extends 'base.html' %}
+<html>
 
-{% load static %}
-
-{% block content %}
-
-  <head onload="submitPayuForm()">
+<head onload="submitPayuForm()">
   <script type="text/javascript">
     var hash = "{{ hashh }}";
     function submitPayuForm() {
-      if(hash =='') {
+      if (hash == '') {
         return;
       }
       var payuForm = document.forms.payuForm;
       payuForm.submit();
     }
   </script>
-  </head>
-    <h2 style="text-align: center; padding-top: 20px;">DONATION FORM</h2>
-    <br/>
-    {% if error %}
-	
-      <span style="color:red">Please fill all mandatory fields.</span>
-      <br/>
-      <br/>
-    {% endif %}
-     
-      <form style="padding-left: 50px;"  action= {{action}} method="post" name="payuForm">{% csrf_token %}
-      <input type="hidden" name="key" value="{{ MERCHANT_KEY }}" />
-      <input type="hidden" name="hash_string" value="{{ hash_string }}" />
-      <input type="hidden" name="hash" value="{{ hashh }}"/>
-      <input type="hidden" name="posted" value="{{ posted }}"/>
-      <input type="hidden" name="txnid" value="{{ txnid }}" />
-      <table>
-        <tr>
-          <td><b>Mandatory Parameters</b></td>
-        </tr>
-        <tr>
-         <td>Amount: </td>
-          <td><input name="amount" value="{{ posted.amount|default:'' }}" /></td>
-          <td>First Name: </td>
-          <td><input name="firstname" id="firstname" value="{{ posted.firstname|default:'' }}" /></td>
-        </tr>
-        <tr>
-          <td>Email: </td>
-          <td><input name="email" id="email" value="{{ posted.email|default:'' }}" /></td>
-          <td>Phone: </td>
-          <td><input name="phone" value="{{ posted.phone|default:'' }}" /></td>
-        </tr>
-        <tr>
-          <td>Donation Info: </td>
-          <td colspan="3"><textarea name="productinfo">{{ posted.productinfo|default:'' }}</textarea></td>
-        </tr>
-        <tr>
-          <td>Success URI: </td>
-          <td colspan="3"><input name="surl" value="{{ posted.surl }}" size="64" /></td>
-        </tr>
-        <tr>
-          <td>Failure URI: </td>
-          <td colspan="3"><input name="furl" value="{{ posted.furl }}" size="64" /></td>
-        </tr>
+</head>
 
-        <tr>
-          <td colspan="3"><input type="hidden" name="service_provider" value="payu_paisa" size="64" /></td>
-        </tr>
-             <tr>
-          <td><b>Optional Parameters</b></td>
-        </tr>
-        <tr>
-          <td>Last Name: </td>
-          <td><input name="lastname" id="lastname" value="{{ posted.lastname }}" /></td>
-          <td>Cancel URI: </td>
-          <td><input name="curl" value="" /></td>
-        </tr>
-        <tr>
-          <td>Address1: </td>
-          <td><input name="address1" value="{{ posted.address1 }}" /></td>
-          <td>Address2: </td>
-          <td><input name="address2" value="{{ posted.address2 }}" /></td>
-        </tr>
-        <tr>
-          <td>City: </td>
-          <td><input name="city" value="{{ posted.city }}" /></td>
-          <td>State: </td>
-          <td><input name="state" value="{{ posted.state }}" /></td>
-        </tr>
-        <tr>
-          <td>Country: </td>
-          <td><input name="country" value="{{ posted.country }}" /></td>
-          <td>Zipcode: </td>
-          <td><input name="zipcode" value="{{ posted.zipcode }}" /></td>
-        </tr>
-        <tr>
-          <td>UDF1: </td>
-          <td><input name="udf1" value="{{ posted.udf1 }}" /></td>
-          <td>UDF2: </td>
-          <td><input name="udf2" value="{{ posted.udf2 }}" /></td>
-        </tr>
-        <tr>
-          <td>UDF3: </td>
-          <td><input name="udf3" value="{{ posted.udf3 }}" /></td>
-          <td>UDF4: </td>
-          <td><input name="udf4" value="{{ posted.udf4 }}" /></td>
-        </tr>
-        <tr>
-          <td>UDF5: </td>
-          <td><input name="udf5" value="{{ posted.udf5 }}" /></td>
-          <td>PG: </td>
-          <td><input name="pg" value="{{ posted.PG }}" /></td>
-        </tr>
-        
-     <td colspan="4"><input type="submit" value="DONATE" /></td>
-      
-    
-        </tr>
-      </table>
-    </form> -->
+<body>
+  <h2>PayU Form</h2>
+  <br />
+  {% if error %}
 
-<!-- 
+  <span style="color:red">Please fill all mandatory fields.</span>
+  <br />
+  <br />
+  {% endif %}
 
-    <style link rel="stylesheet" href="{% static 'donate/css/style.css' %}">
-    </style>
-    Font Icon 
-    <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
-    <link rel="stylesheet" href="vendor/nouislider/nouislider.min.css">
+  <form action={{ action }} method="post" name="payuForm">{% csrf_token %}
+    <input type="hidden" name="key" value="{{ MERCHANT_KEY }}" />
+    <input type="hidden" name="hash_string" value="{{ hash_string }}" />
+    <input type="hidden" name="hash" value="{{ hashh }}" />
+    <input type="hidden" name="posted" value="{{ posted }}" />
+    <input type="hidden" name="txnid" value="{{ txnid }}" />
+    <table>
+      <tr>
+        <td><b>Mandatory Parameters</b></td>
+      </tr>
+      <tr>
+        <td>Amount: </td>
+        <td><input name="amount" value="{{ posted.amount|default:'' }}" /></td>
+        <td>First Name: </td>
+        <td><input name="firstname" id="firstname" value="{{ posted.firstname|default:'' }}" /></td>
+      </tr>
+      <tr>
+        <td>Email: </td>
+        <td><input name="email" id="email" value="{{ posted.email|default:'' }}" /></td>
+        <td>Phone: </td>
+        <td><input name="phone" value="{{ posted.phone|default:'' }}" /></td>
+      </tr>
+      <tr>
+        <td>Product Info: </td>
+        <td colspan="3"><textarea name="productinfo">{{ posted.productinfo|default:'' }}</textarea></td>
+      </tr>
+      <tr>
+        <td>Success URI: </td>
+        <td colspan="3"><input name="surl" value="{{ posted.surl }}" size="64" /></td>
+      </tr>
+      <tr>
+        <td>Failure URI: </td>
+        <td colspan="3"><input name="furl" value="{{ posted.furl }}" size="64" /></td>
+      </tr>
 
-     
-     <link rel="stylesheet" href="{% static 'donate/fonts/material-icon/css/material-design-iconic-font.min.css' %}">
-    <link rel="stylesheet" href="{% static 'donate/vendor/nouislider/nouislider.min.css' %}">
-  
-     
-    <div class="main">
+      <tr>
+        <td colspan="3"><input type="hidden" name="service_provider" value="payu_paisa" size="64" /></td>
+      </tr>
+      <tr>
+        <td><b>Optional Parameters</b></td>
+      </tr>
+      <tr>
+        <td>Last Name: </td>
+        <td><input name="lastname" id="lastname" value="{{ posted.lastname }}" /></td>
+        <td>Cancel URI: </td>
+        <td><input name="curl" value="" /></td>
+      </tr>
+      <tr>
+        <td>Address1: </td>
+        <td><input name="address1" value="{{ posted.address1 }}" /></td>
+        <td>Address2: </td>
+        <td><input name="address2" value="{{ posted.address2 }}" /></td>
+      </tr>
+      <tr>
+        <td>City: </td>
+        <td><input name="city" value="{{ posted.city }}" /></td>
+        <td>State: </td>
+        <td><input name="state" value="{{ posted.state }}" /></td>
+      </tr>
+      <tr>
+        <td>Country: </td>
+        <td><input name="country" value="{{ posted.country }}" /></td>
+        <td>Zipcode: </td>
+        <td><input name="zipcode" value="{{ posted.zipcode }}" /></td>
+      </tr>
+      <tr>
+        <td>UDF1: </td>
+        <td><input name="udf1" value="{{ posted.udf1 }}" /></td>
+        <td>UDF2: </td>
+        <td><input name="udf2" value="{{ posted.udf2 }}" /></td>
+      </tr>
+      <tr>
+        <td>UDF3: </td>
+        <td><input name="udf3" value="{{ posted.udf3 }}" /></td>
+        <td>UDF4: </td>
+        <td><input name="udf4" value="{{ posted.udf4 }}" /></td>
+      </tr>
+      <tr>
+        <td>UDF5: </td>
+        <td><input name="udf5" value="{{ posted.udf5 }}" /></td>
+        <td>PG: </td>
+        <td><input name="pg" value="{{ posted.PG }}" /></td>
+      </tr>
 
-        <div class="container">
-            <div class="signup-content">
-                <div class="signup-img">
-                    <img src="{% static 'donate/images/donate.jpeg' %}" alt="" style="height: 750px;" style="width: 1000px;">
-                    <div class="signup-img-content">
-                        <h2>Donate Us !!! </h2>
-                        <p>SERVING to bring HOPE to Humanity with LOVE and the TRUTH</p>
-                  
-                    </div>
-                </div>
-                <div class="signup-form">
-                    <form method="POST" class="register-form" id="register-form">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <div class="form-input">
-                                    <label for="first_name" class="required">First name</label>
-                                    <input type="text" name="first_name" id="first_name" />
-                                </div>
-                                <div class="form-input">
-                                    <label for="last_name" class="required">Last name</label>
-                                    <input type="text" name="last_name" id="last_name" />
-                                </div>
-                                <div class="form-input">
-                                    <label for="company" class="required">Address</label>
-                                    <input type="text" name="company" id="company" />
-                                </div>
-                                <div class="form-input">
-                                    <label for="email" class="required">Email</label>
-                                    <input type="text" name="email" id="email" />
-                                </div>
-                                <div class="form-input">
-                                    <label for="phone_number" class="required">Phone number</label>
-                                    <input type="text" name="phone_number" id="phone_number" />
-                                </div>
+      <td colspan="4"><input type="submit" value="Submit" /></td>
 
-                                <div class="form-input">
-                                    <label for="chequeno">City</label>
-                                    <input type="text" name="chequeno" id="chequeno" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="form-select">
-                                    <div class="label-flex">
-                                        <label for="meal_preference">Donation preference</label>
-                                        <a href="#" class="form-link">Donation detail</a>
-                                    </div>
-                                    <div class="select-list">
-                                        <select name="meal_preference" id="meal_preference">
-                                            <option value="Vegetarian">Once</option>
-                                            <option value="Kosher">Monthly</option>
-                                            <option value="Asian Vegetarian">Yearly</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-radio">
-                                    <div class="label-flex">
-                                        <label for="payment">Payment Mode</label>
-                                        <a href="#" class="form-link">Payment Detail</a>
-                                    </div>
-                                    <div class="form-radio-group">
-                                        <div class="form-radio-item">
-                                            <input type="radio" name="payment" id="cash" checked>
-                                            <label for="cash">Credit Card</label>
-                                            <span class="check"></span>
-                                        </div>
-                                        <div class="form-radio-item">
-                                            <input type="radio" name="payment" id="cheque">
-                                            <label for="cheque">UPI</label>
-                                            <span class="check"></span>
-                                        </div>
-                                        <div class="form-radio-item">
-                                            <input type="radio" name="payment" id="demand">
-                                            <label for="demand">Debit Card</label>
-                                            <span class="check"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-input">
-                                    <label for="chequeno">State</label>
-                                    <input type="text" name="chequeno" id="chequeno" />
-                                </div>
-                                <div class="form-input">
-                                    <label for="chequeno">Postal Code</label>
-                                    <input type="text" name="chequeno" id="chequeno" />
-                                </div>
-                                <div class="form-input">
-                                    <label for="chequeno" class="required">PAN Number</label>
-                                    <input type="text" name="chequeno" id="chequeno" />
-                                </div>
 
-                            </div>
-                        </div>
-                        <div class="donate-us">
-                            <label>Donate us</label>
-                            <div class="price_slider ui-slider ui-slider-horizontal">
-                                <div id="slider-margin"></div>
-                                <span class="donate-value" id="value-lower"></span>
-                            </div>
-                        </div>
-                        <div class="form-submit">
-                            <input type="submit" value="Submit" class="submit" id="submit" name="submit" />
-                            <input type="submit" value="Reset" class="submit" id="reset" name="reset" />
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+      </tr>
+    </table>
+  </form>
+</body>
 
-    </div>
-
-     JS 
-    <script src="{% static 'donate/vendor/jquery/jquery.min.js' %}"></script>
-    <script src="{% static 'donate/vendor/nouislider/nouislider.min.js' %}"></script>
-    <script src="{% static 'donate/vendor/wnumb/wNumb.js' %}"></script>
-    <script src="{% static 'donate/vendor/jquery-validation/dist/jquery.validate.min.js' %}"></script>
-    <script src="{% static 'donate/vendor/jquery-validation/dist/additional-methods.min.js' %}"></script>
-    <script src="{% static 'donate/js/main_1.js' %}"></script> -->
-    
-{% endblock content %}
-
+</html>

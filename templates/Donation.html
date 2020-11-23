@@ -1,0 +1,453 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<head onload="submitPayuForm()">
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css'>
+
+    <script type="text/javascript">
+        var hash = "{{ hashh }}";
+        function submitPayuForm() {
+            if (hash == '') {
+                return;
+            }
+            var payuForm = document.forms.payuForm;
+            payuForm.submit();
+        }
+    </script>
+
+</head>
+
+<body>
+    {% if error %}
+
+    <span style="color:red">Please fill all mandatory fields.</span>
+    <br />
+    <br />
+    {% endif %}
+
+    <form action={{ action }} method="post" name="payuForm">{% csrf_token %}
+        <input type="hidden" name="key" value="{{ MERCHANT_KEY }}" />
+        <input type="hidden" name="hash_string" value="{{ hash_string }}" />
+        <input type="hidden" name="hash" value="{{ hashh }}" />
+        <input type="hidden" name="posted" value="{{ posted }}" />
+        <input type="hidden" name="txnid" value="{{ txnid }}" />
+
+        <input type="hidden" name="surl" value="{{ posted.surl }}" size="64" />
+        <!-- <input type="hidden" name="productinfo" value="{{ posted.productinfo }}" size="64" /> -->
+
+        <input type="hidden" name="furl" value="{{ posted.furl }}" size="64" />
+        <input type="hidden" name="service_provider" value="payu_paisa" size="64" />
+        <!-- <input type="hidden" name="curl" value="{{ posted.curl }}" size="64" /> -->
+
+        <div class="container-fluid ">
+            <div class="container" style="padding-top:50px ;">
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Personal Information</h3>
+                            </div>
+
+                            <div class="panel-body">
+
+                                <div class="bodyTest">
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <!-- first name input-->
+                                            <div class="form-group">
+                                                <label for="firstname" class="control-label">First Name</label>
+                                                <div class="">
+                                                    <input id="firstname" name="firstname" type="text"
+                                                        value="{{ posted.firstname|default:'' }}"
+                                                        autocomplete="first-name" placeholder="firstname"
+                                                        class="form-control">
+                                                    <p class="help-block"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="lastname" class="control-label">Last Name</label>
+                                                <div class="">
+                                                    <input id="lastname" name="lastname" type="text"
+                                                        value="{{ posted.lastname|default:'' }}" autocomplete="lastname"
+                                                        placeholder="last name" class="form-control">
+                                                    <p class="help-block"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- last name input-->
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <!-- email input-->
+                                            <div class="form-group">
+                                                <label for="email" class="control-label">E-mail</label>
+                                                <div class="">
+                                                    <input id="email" name="email" type="text"
+                                                        value="{{ posted.email|default:'' }}" autocomplete="email"
+                                                        placeholder="email" class="form-control">
+                                                    <p class="help-block"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="phone" class="control-label">Phone No.</label>
+                                                <div class="">
+                                                    <input id="phone" name="phone" type="text"
+                                                        value="{{ posted.phone|default:'' }}" autocomplete="phone"
+                                                        placeholder="phone" class="form-control">
+                                                    <p class="help-block"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <!-- company input-->
+                                            <div class="control-group">
+                                                <label for="company" class="control-label ">Company /
+                                                    Organization</label>
+                                                <div class="">
+                                                    <input id="company" name="company" type="text"
+                                                        value="{{ posted.organization|default:'' }}"
+                                                        autocomplete="organization"
+                                                        placeholder="company or organization (optional)"
+                                                        class="form-control">
+                                                    <p class="help-block"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="phone" class="control-label">Adhaar No.</label>
+                                                <div class="">
+                                                    <input id="productinfo" name="productinfo" type="text"
+                                                        value="{{ posted.productinfo|default:'' }}"
+                                                        autocomplete="productinfo" placeholder="adhaar"
+                                                        class="form-control">
+                                                    <p class="help-block"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!-- address-line1 input-->
+                                    <div class="row">
+
+                                        <div class="col-sm-6">
+                                            <div class="control-group">
+                                                <label class="control-label ">Address Line 1</label>
+                                                <div class=" ">
+                                                    <input id="address1" name="address1" type="text"
+                                                        value="{{ posted.address1 }}" autocomplete="address1"
+                                                        placeholder="address 1" class="form-control">
+                                                    <p class="help-block">street address, P.O. Box, c/o</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- address-line2 input-->
+                                        <div class="col-sm-6">
+                                            <div class="control-group">
+                                                <label class="control-label">Address Line 2</label>
+                                                <div class="">
+                                                    <input id="address2" name="address2" type="text"
+                                                        value="{{ posted.address2 }}" autocomplete="address2"
+                                                        placeholder="address 2" class="form-control">
+                                                    <p class="help-block">apartment, suite , unit, building, floor,
+                                                        etc.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="col-sm-6">
+                                            <div class="control-group">
+                                                <label class="control-label">City / Town</label>
+                                                <div class="">
+                                                    <input id="city" name="city" type="text" value="{{ posted.city }}"
+                                                        autocomplete="address-level2" placeholder="city"
+                                                        class="form-control">
+                                                    <p class="help-block"></p>
+                                                </div>
+                                            </div>
+                                            <!-- region input-->
+                                        </div>
+
+
+                                        <div class="col-sm-6">
+
+                                            <div class="control-group">
+                                                <label class="control-label">State / Province</label>
+                                                <div class="">
+                                                    <input id="state" name="state" type="text"
+                                                        value="{{ posted.state }}" autocomplete="address-level1"
+                                                        placeholder="state / province / region" class="form-control">
+                                                    <p class="help-block"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-sm-6">
+                                            <div class="control-group">
+                                                <label class="control-label ">Zip / Postal Code</label>
+                                                <div class="">
+                                                    <input id="zipcode" name="zipcode" type="text"
+                                                        value="{{ posted.zipcode }}" autocomplete="postal-code"
+                                                        placeholder="zip or postal code" class="form-control">
+                                                    <p class="help-block"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+
+                                            <div class="control-group">
+                                                <label class="control-label ">Country</label>
+                                                <div class="">
+                                                    <input id="country" name="country" type="text"
+                                                        value="{{ posted.country }}" autocomplete="country"
+                                                        placeholder="country" class="form-control">
+                                                    <p class="help-block"></p>
+                                                </div>
+                                            </div>
+
+                                            <!-- country select -->
+                                            <!--  <div class="control-group">
+                                            <label class="control-label c">Country</label>
+                                            <div class="">
+                                                <select id="country" name="country" autocomplete="country"
+                                                    class="form-control">
+                                                    <option value="" selected="selected">(please select a country)
+                                                    </option>
+
+                                                    <option value="IN">India</option>
+
+                                                </select>
+                                            </div>
+                                        </div> -->
+
+
+                                            <!-- postal-code input-->
+
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div><!-- panel -->
+
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Donation Details</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="cardNumber">Amount</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="Amount" placeholder="0.00"
+                                                value="{{ posted.amount|default:'' }}" required autofocus />
+                                            <span class="input-group-addon"><i class="fa fa-inr"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-sm-6">
+                                    <div class="control-group">
+                                        <label class="control-label">Write a Message !</label>
+                                        <div class="">
+                                            <input id="message" name="message" type="text"
+                                                value="{{ posted.message|default:'' }}" autocomplete="message"
+                                                placeholder="Thank You .." class="form-control">
+                                            <p class="help-block">Thank you for this kind gesture !!!</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p style="float: right;">* We accept only Indian Curreny</p>
+                            </div>
+                        </div>
+
+                        <div class="row" style="padding:30px;">
+                            <div class="col-xs-12">
+                                <button class="btn btn-success btn-lg btn-block" type="submit" value="Submit">Donate
+                                    Now</button>
+                            </div>
+                        </div>
+
+                    </div>
+    </form>
+    <!--  <div class="col-xs-12 col-md-6 col-md-offset-3" style="padding-bottom:50px ;">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Payment Details</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form role="form" id="payment-form">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <label for="cardNumber">CARD NUMBER</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="cardNumber"
+                                                placeholder="Valid Card Number" required autofocus
+                                                data-stripe="number" />
+                                            <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-7 col-md-7">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <label for="expMonth">EXPIRATION DATE</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-6 col-lg-6 pl-ziro">
+                                                <input type="text" class="form-control" name="expMonth" placeholder="MM"
+                                                    required data-stripe="exp_month" />
+                                            </div>
+                                            <div class="col-xs-6 col-lg-6 pl-ziro">
+                                                <input type="text" class="form-control" name="expYear" placeholder="YY"
+                                                    required data-stripe="exp_year" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-5 col-md-5 pull-right">
+                                    <div class="form-group">
+                                        <label for="cvCode">CV CODE</label>
+                                        <input type="password" class="form-control" name="cvCode" placeholder="CV"
+                                            required data-stripe="cvc" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <button class="btn btn-success btn-lg btn-block" type="submit">Donate Now</button>
+                                </div>
+                            </div>
+                            <div class="row" style="display:none;">
+                                <div class="col-xs-12">
+                                    <p class="payment-errors"></p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div> -->
+    </div>
+    </div>
+    </div>
+
+
+
+    <div class="container-fluid  fh5co_fh5co_bg_contcat">
+        <div class="container">
+            <div class="row py-4">
+                <div class="col-md-4 py-3">
+                    <div class="row fh5co_contact_us_no_icon_difh5co_hover">
+                        <div class="col-3 fh5co_contact_us_no_icon_difh5co_hover_1">
+                            <div class="fh5co_contact_us_no_icon_div"> <span><i class="fa fa-phone"></i></span>
+                            </div>
+                        </div>
+                        <div class="col-9 align-self-center fh5co_contact_us_no_icon_difh5co_hover_2">
+                            <span class="c_g d-block">Call Us</span>
+                            <span class="d-block c_g fh5co_contact_us_no_text">9717711502 , 9818181502</span>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="col-md-4 py-3">
+                    <div class="row fh5co_contact_us_no_icon_difh5co_hover">
+                        <div class="col-3 fh5co_contact_us_no_icon_difh5co_hover_1">
+                            <div class="fh5co_contact_us_no_icon_div"> <span><i class="fa fa-envelope"></i></span>
+                            </div>
+                        </div>
+                        <div class="col-9 align-self-center fh5co_contact_us_no_icon_difh5co_hover_2">
+                            <span class="c_g d-block">Have any query?</span>
+                            <span class="d-block c_g fh5co_contact_us_no_text"> pmiteam@gmail.com,
+                                info@pmingo.org</span>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="col-md-4 py-3">
+                    <div class="row fh5co_contact_us_no_icon_difh5co_hover">
+                        <div class="col-3 fh5co_contact_us_no_icon_difh5co_hover_1">
+                            <div class="fh5co_contact_us_no_icon_div"> <span><i class="fa fa-map-marker"></i></span>
+                            </div>
+                        </div>
+                        <div class="col-9 align-self-center fh5co_contact_us_no_icon_difh5co_hover_2">
+                            <span class="c_g d-block">Address</span>
+                            <span class="d-block c_g fh5co_contact_us_no_text"></span>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid mb-4">
+        <div class="container">
+            <div class="col-12 text-center contact_margin_svnit ">
+                <div class="text-center fh5co_heading py-2">Contact Us</div>
+            </div>
+            <div class="row">
+                <!-- <div class="col-12 col-md-6">
+                        <form class="row" id="fh5co_contact_form">
+                            <div class="col-12 py-3">
+                                <input type="text" class="form-control fh5co_contact_text_box"
+                                    placeholder="Enter Your Name" />
+                            </div>
+                            <div class="col-6 py-3">
+                                <input type="text" class="form-control fh5co_contact_text_box" placeholder="E-mail" />
+                            </div>
+                            <div class="col-6 py-3">
+                                <input type="text" class="form-control fh5co_contact_text_box" placeholder="Subject" />
+                            </div>
+                            <div class="col-12 py-3">
+                                <textarea class="form-control fh5co_contacts_message" placeholder="Message"></textarea>
+                            </div>
+                            <div class="col-12 py-3 text-center"> <a href="#" class="btn contact_btn">Send Message</a>
+                            </div>
+                        </form>
+                    </div> -->
+                <div class="col-12 col-md-12 align-self-center">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d13998.709983455392!2d77.1905633!3d28.6992924!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x7690673d5176a1f8!2sPassion%20Movement%20International!5e0!3m2!1sen!2sin!4v1582456176733!5m2!1sen!2sin"
+                        class="map_sss" allowfullscreen></iframe>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock content %}

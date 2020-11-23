@@ -1,0 +1,824 @@
+{% extends 'base.html' %} {% load static %} {%block content%}
+
+
+<div class="container-fluid" style="padding-top: 20px;">
+
+    {% for obj in community%}
+    <div class="container">
+        <div style="padding:8px;">
+            <div class="fh5co_heading fh5co_heading_border_bottom py-2 mb-4">
+                <a href="#" id="Heading">
+                    <h1> <b>{{obj.title|safe}}</b> </h1>
+                </a>
+            </div>
+        </div>
+        <div class="container-fluid pb-4 pt-5">
+            <div class="container animate-box">
+                <!--  <div>
+                        <div class="fh5co_heading fh5co_heading_border_bottom py-2 mb-4">
+                            <a href="#" id="Heading">
+                                <h1> <b>Badabagh Community</b> </h1>
+                            </a>
+                        </div>
+                    </div> -->
+                <div class="owl-carousel owl-theme" style="align-items: center" id="slider2">
+                    {% for obj in pics %}
+
+                    <div class="item px-2">
+                        <div class="fh5co_hover_news_img">
+                            <div class="fh5co_news_img"><img src="{{ obj.images.url }}" alt="" /></div>
+
+                        </div>
+                    </div>
+                    {%endfor%}
+
+                </div>
+            </div>
+        </div>
+        <div>
+            {{obj.content | safe}}
+        </div>
+        <br>
+        <br>
+    </div>
+    {%endfor%}
+    <!-- {% for obj in post%}
+    <div class="container" id="{{obj.title}}">
+        <div class=" row">
+            <a href="# " id="Heading">
+                <h1> <b>{{obj.title}}</b> </h1>
+            </a>
+        </div>
+        <div class="row pb-4 ">
+            <div class=" " id="paraFont">
+                <p>
+                    {% if forloop.first|divisibleby:2 %}
+                <div class="col-md-5 " style=" height:350px;  min-width: 350px ; border-radius:350px; float: right;">
+                    {%else%}
+                    <div class="col-md-5 " style=" height:350px; min-width: 350px ; border-radius:350px;float: left; ">
+                        {%endif%}
+                        <div id="carouselExampleIndicators " class="carousel slide " data-ride="carousel ">
+                            <ol class="carousel-indicators ">
+                                {% for p in photos %}
+                                {% ifequal p.communitypost.title obj.title %}
+                                <li data-target="#carousel-example-1z" data-slide-to="{{ forloop.counter0 }}"
+                                    class="{% if forloop.counter0 == 0 %} active {% endif %}"></li>
+                                {% endifequal %}
+                                {% endfor %}
+                            </ol>
+                            <div class="carousel-inner "
+                                style="width:100%;max-width:700px;height:100% ; max-height: 700px; ">
+                                {% for p in photos%}
+                                {% ifequal p.communitypost.title obj.title %}
+                                {% if forloop.first %}
+                                <div class="carousel-item active  ">
+                                    {% else %}
+                                    <div class="carousel-item  ">
+                                        {% endif %}
+                                        <img class="d-block w-100" src="{{ p.images.url}}" style="align-items: center"
+                                            alt="{{forloop.counter0}}">
+                                    </div>
+                                </div>
+                                {% endifequal %}
+                                {% endfor %}
+                            </div>
+                            <a class="carousel-control-prev " href="#carouselExampleIndicators " role="button "
+                                data-slide="prev ">
+                                <span class="carousel-control-prev-icon " aria-hidden="true "></span>
+                                <span class="sr-only ">Previous</span>
+                            </a>
+                            <a class="carousel-control-next " href="#carouselExampleIndicators " role="button "
+                                data-slide="next ">
+                                <span class="carousel-control-next-icon " aria-hidden="true "></span>
+                                <span class="sr-only ">Next</span>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+                {{obj.content | safe}}
+            </div>
+        </div>
+    </div>
+
+    {% endfor %} -->
+
+    <!-- 2nd loop -->
+
+    {% for obj in post%}
+
+    <div class="container " id="{{obj.title}}">
+        <div class="row ">
+            <a href="# " id="Heading">
+                <h1> <b>{{obj.title}}</b> </h1>
+            </a>
+        </div> <br><br>
+        <div class="row pb-4 "> 
+
+            <div class=" " id="" >
+                {% if forloop.first|divisibleby:2 %}
+
+                <div class=" " style=" width: 80%; padding-left: 200px; ">
+                    {%else%}
+                    <div class="" style="  width: 80%; padding-left: 200px; ">
+                        {%endif%}
+
+                        <div class=" ">
+
+                            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" >
+                                <ol class="carousel-indicators"  >
+                                    {% for obj in photos %} {% if forloop.first %}
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="{{forloop.counter0}}" class="active"></li>
+                                    {% else %}
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="{{forloop.counter0}}">
+                                    </li>
+
+                                    {% endif %} {% endfor %}
+                                    <!-- <li data-target="#carouselExampleIndicators" data-slide-to="2"></li> -->
+                                </ol>
+                                <div class="carousel-inner"  >
+                                    {% for p in photos %} {% if forloop.first %}
+                                    <div class="carousel-item active  "> 
+                                        {% else %}
+                                        <div class="carousel-item  " >
+                                            {% endif %}
+                                            <img class="d-block w-100 h-50" class="h-50 d-inline-block" src="{{ p.images.url}}"  alt="{{forloop.counter0}}">
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+
+                                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{obj.content|safe}}
+                </div>
+            </div>
+        </div>
+        {%endfor%}
+    </div>
+
+    <!-- 
+<div class="container-fluid">
+
+    <div class="container" id="Nandlal Community">
+        <div class="row">
+            <a href="#" id="Heading">
+
+            </a>
+        </div>
+        <div class="container-fluid pb-4 pt-5">
+            <div class="container animate-box">
+                <div>
+                    <div class="fh5co_heading fh5co_heading_border_bottom py-2 mb-4">
+                        <a href="#" id="Heading">
+                            <h1> <b>Nandlal Community</b> </h1>
+                        </a>
+                    </div>
+                </div>
+                <div class="owl-carousel owl-theme" style="align-items: center" id="slider2">
+                    <div class="item px-2">
+                        <div class="fh5co_hover_news_img">
+                            <div class="fh5co_news_img"><img src="images/CHEP/IMG-20161114-WA0006.jpg" alt="" /></div>
+
+                        </div>
+                    </div>
+                    <div class="item px-2">
+                        <div class="fh5co_hover_news_img">
+                            <div class="fh5co_news_img"><img src="images/CHEP/IMG-20200131-WA0008 (1).jpg" alt="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item px-2">
+                        <div class="fh5co_hover_news_img">
+                            <div class="fh5co_news_img"><img src="images/CHEP/IMG_0381.JPG" alt="" /></div>
+                        </div>
+                    </div>
+                    <div class="item px-2">
+                        <div class="fh5co_hover_news_img">
+                            <div class="fh5co_news_img"><img src="images/CHEP/IMG_5039.JPG" alt="" /></div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="" id="paraFont">Our passion is to encourage University students to be part of serving the community
+            in various ways. PMI has sought to identify the areas of need in the communities and endeavors to
+            practically meet them with not only immediate but long term
+            impact. One of the greatest needs is in education of children, particularly those of slum areas. PMI has
+            chosen the NANDLAL SLUM for it’s overall development. This slum has approximately 1000 families, and for the
+            past 3 years, PMI has
+            been focusing on the education of the children and the health of the women and children. PMI has selected
+            many children to encourage in their education and future life dreams. Volunteers join us to help tutor these
+            children. We also monitor
+            their health, teach hygiene, and give medicines & vitamins as needed. This is a long-term program with the
+            goal of sending these children to college.</div>
+        <br>
+        <br>
+    </div>
+
+    <div class="container " id="Health Checkup ">
+        <div class="row ">
+            <a href="# " id="Heading">
+                <h1> <b>Health Checkup</b> </h1>
+            </a>
+        </div>
+        <div class="row pb-4 ">
+
+            <div class=" " id="paraFont">
+                <p>
+                <div class="col-md-5 " style=" height:350px;  min-width: 350px ; border-radius:350px;float: right;">
+
+                    <div class="fh5co_hover_news_img "
+                        style="width:100%;max-width:700px;height:100% ; max-height: 700px; ">
+
+                        <div id="carouselExampleIndicators " class="carousel slide " data-ride="carousel ">
+                            <ol class="carousel-indicators ">
+                                <li data-target="#carouselExampleIndicators " data-slide-to="0 " class="active "></li>
+                                <li data-target="#carouselExampleIndicators " data-slide-to="1 "></li>
+                                <li data-target="#carouselExampleIndicators " data-slide-to="2 "></li>
+                            </ol>
+                            <div class="carousel-inner "
+                                style="width:100%;max-width:700px;height:100% ; max-height: 700px; ">
+                                <div class="carousel-item active ">
+                                    <img class="d-block w-100 " src="images/IMG_0015.JPG " style="align-items: center "
+                                        alt="First slide ">
+                                </div>
+                                <div class="carousel-item ">
+                                    <img class="d-block w-100 " src="images/IMG_0065.JPG " style="align-items: center "
+                                        alt="Second slide ">
+                                </div>
+                                <div class="carousel-item ">
+                                    <img class="d-block w-100 " src="images/IMG_0224.JPG " style="align-items: center "
+                                        alt="Third slide ">
+                                </div>
+                            </div>
+                            <a class="carousel-control-prev " href="#carouselExampleIndicators " role="button "
+                                data-slide="prev ">
+                                <span class="carousel-control-prev-icon " aria-hidden="true "></span>
+                                <span class="sr-only ">Previous</span>
+                            </a>
+                            <a class="carousel-control-next " href="#carouselExampleIndicators " role="button "
+                                data-slide="next ">
+                                <span class="carousel-control-next-icon " aria-hidden="true "></span>
+                                <span class="sr-only ">Next</span>
+                            </a>
+                        </div>
+
+                    </div>
+
+                </div>
+                Meet Prabin: direct, engaging, swift, fun, organized and hard working - the perfect guy to lead as PMI’s
+                campus coordinator as well as he is working as a Manager of PMI. Prabin hails from the north east state
+                of Manipur. Having a heart and passion to
+                help university students, he plays a vital role on PMI’s team. An easy guy to get to know, he isn’t just
+                an encouragement to students, but a point of connection between them and PMI.
+
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container " id="PATHSHALA ">
+        <div class="row ">
+            <a href="# " id="Heading">
+                <h1> <b>PATHSHALA</b> </h1>
+            </a>
+        </div>
+        <div class="row pb-4 ">
+
+            <div class=" " id="paraFont">
+                <p>
+                <div class="col-md-5 " style=" height:350px;  min-width: 350px ; border-radius:350px;float: left;">
+                    <div class="fh5co_hover_news_img "
+                        style="width:100%;max-width:700px;height:100% ; max-height: 700px; ">
+                        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                            </ol>
+                            <div class="carousel-inner"
+                                style="width:100%;max-width:700px;height:100% ; max-height: 700px;">
+                                <div class="carousel-item active">
+                                    <img class="d-block w-100" src="images/IMG_0015.JPG" style="align-items: center"
+                                        alt="First slide">
+                                </div>
+                                <div class="carousel-item">
+                                    <img class="d-block w-100" src="images/IMG_0065.JPG" style="align-items: center"
+                                        alt="Second slide">
+                                </div>
+                                <div class="carousel-item">
+                                    <img class="d-block w-100" src="images/IMG_0224.JPG" style="align-items: center"
+                                        alt="Third slide">
+                                </div>
+                            </div>
+                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
+                                data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
+                                data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                This is a part of Child Health Education Program (CHEP) and was started in 2007 in Nandalal. In 2019,
+                this program was extended to Bada-bhag. The program is for underprivileged children who are unable to
+                afford a home tutor. It's objective is to provide
+                free tuition and guidance to children from Nursery to Class 5. It aims in training the children, basic
+                foundation course involving creative learning, not just academic progress. Children are taught every day
+                for one and a half
+                hours by our member or volunteer or intern. A minimum of two teachers is present in every class to
+                assist them. We also invite their parents to monitor our way of teaching and we take feedback for future
+                improvement. Through this
+                program, we also give out a basic school kit, uniform shirt, shoes, etc. Not just that, we also give
+                refreshments and snacks and sweets. We are very thankful to all the donors. Through your donation, we
+                have been able to execute
+                and continue this good work. Do keep supporting us.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container " id="Bal Shiksha Program">
+        <div class="row ">
+            <a href="# " id="Heading">
+                <h1> <b>Bal Shiksha Program</b> </h1>
+            </a>
+        </div>
+        <div class="row pb-4 ">
+
+            <div class=" " id="paraFont">
+                <p>
+                <div class="col-md-5 " style=" height:350px;  min-width: 350px ; border-radius:350px;float: right;">
+
+                    <div id="carouselExampleIndicators " class="carousel slide " data-ride="carousel ">
+                        <ol class="carousel-indicators ">
+                            <li data-target="#carouselExampleIndicators " data-slide-to="0 " class="active "></li>
+                            <li data-target="#carouselExampleIndicators " data-slide-to="1 "></li>
+                            <li data-target="#carouselExampleIndicators " data-slide-to="2 "></li>
+                        </ol>
+                        <div class="carousel-inner "
+                            style="width:100%;max-width:700px;height:100% ; max-height: 700px; ">
+                            <div class="carousel-item active ">
+                                <img class="d-block w-100 " src="images/IMG_0015.JPG " style="align-items: center "
+                                    alt="First slide ">
+                            </div>
+                            <div class="carousel-item ">
+                                <img class="d-block w-100 " src="images/IMG_0065.JPG " style="align-items: center "
+                                    alt="Second slide ">
+                            </div>
+                            <div class="carousel-item ">
+                                <img class="d-block w-100 " src="images/IMG_0224.JPG " style="align-items: center "
+                                    alt="Third slide ">
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev " href="#carouselExampleIndicators " role="button "
+                            data-slide="prev ">
+                            <span class="carousel-control-prev-icon " aria-hidden="true "></span>
+                            <span class="sr-only ">Previous</span>
+                        </a>
+                        <a class="carousel-control-next " href="#carouselExampleIndicators " role="button "
+                            data-slide="next ">
+                            <span class="carousel-control-next-icon " aria-hidden="true "></span>
+                            <span class="sr-only ">Next</span>
+                        </a>
+                    </div>
+
+                </div>
+                This program is part of Child Health Education Program (CHEP) and was started in 2007. The program is
+                for underprivileged children who are unable to afford education. It aims to provide comprehensive
+                learning program to selected students from classes
+                9 to 12 who are devoted, ambitious, having a passion and positive attitude towards study. </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container " id="Vitamin Project">
+        <div class="row ">
+            <a href="# " id="Heading">
+                <h1> <b>Vitamin Project</b> </h1>
+            </a>
+        </div>
+        <div class="row pb-4 ">
+
+            <div class=" " id="paraFont">
+                <p>
+                <div class="col-md-5 " style=" height:350px;  min-width: 350px ; border-radius:350px;float: left;">
+
+                    <div id="carouselExampleIndicators " class="carousel slide " data-ride="carousel ">
+                        <ol class="carousel-indicators ">
+                            <li data-target="#carouselExampleIndicators " data-slide-to="0 " class="active "></li>
+                            <li data-target="#carouselExampleIndicators " data-slide-to="1 "></li>
+                            <li data-target="#carouselExampleIndicators " data-slide-to="2 "></li>
+                        </ol>
+                        <div class="carousel-inner "
+                            style="width:100%;max-width:700px;height:100% ; max-height: 700px; ">
+                            <div class="carousel-item active ">
+                                <img class="d-block w-100 " src="images/IMG_0015.JPG " style="align-items: center "
+                                    alt="First slide ">
+                            </div>
+                            <div class="carousel-item ">
+                                <img class="d-block w-100 " src="images/IMG_0065.JPG " style="align-items: center "
+                                    alt="Second slide ">
+                            </div>
+                            <div class="carousel-item ">
+                                <img class="d-block w-100 " src="images/IMG_0224.JPG " style="align-items: center "
+                                    alt="Third slide ">
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev " href="#carouselExampleIndicators " role="button "
+                            data-slide="prev ">
+                            <span class="carousel-control-prev-icon " aria-hidden="true "></span>
+                            <span class="sr-only ">Previous</span>
+                        </a>
+                        <a class="carousel-control-next " href="#carouselExampleIndicators " role="button "
+                            data-slide="next ">
+                            <span class="carousel-control-next-icon " aria-hidden="true "></span>
+                            <span class="sr-only ">Next</span>
+                        </a>
+                    </div>
+
+                </div>
+                On the first of September PMI launched an exciting new program we call The Vitamin Project! The concern
+                for the well-being of the Nandlal slum kids is what began the incredible undertaking. Over a year ago it
+                was observed that a leading cause of sickness
+                among the kids is malnutrition. The most plausible and practical solution was vitamins! With a goal
+                before us, the plan was set in motion. In the time since, PMI’s founder, Dr. Peter Malakar, met with a
+                trusted friend who directed
+                him to just the right source.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container " id="Back to school">
+        <div class="row ">
+            <a href="# " id="Heading">
+                <h1> <b>Back to school</b> </h1>
+            </a>
+        </div>
+        <div class="row pb-4 ">
+
+            <div class=" " id="paraFont">
+                <p>
+                <div class="col-md-5 " style=" height:350px;  min-width: 350px ; border-radius:350px;float: right;">
+
+                    <div id="carouselExampleIndicators " class="carousel slide " data-ride="carousel ">
+                        <ol class="carousel-indicators ">
+                            <li data-target="#carouselExampleIndicators " data-slide-to="0 " class="active "></li>
+                            <li data-target="#carouselExampleIndicators " data-slide-to="1 "></li>
+                            <li data-target="#carouselExampleIndicators " data-slide-to="2 "></li>
+                        </ol>
+                        <div class="carousel-inner "
+                            style="width:100%;max-width:700px;height:100% ; max-height: 700px; ">
+                            <div class="carousel-item active ">
+                                <img class="d-block w-100 " src="images/IMG_0015.JPG " style="align-items: center "
+                                    alt="First slide ">
+                            </div>
+                            <div class="carousel-item ">
+                                <img class="d-block w-100 " src="images/IMG_0065.JPG " style="align-items: center "
+                                    alt="Second slide ">
+                            </div>
+                            <div class="carousel-item ">
+                                <img class="d-block w-100 " src="images/IMG_0224.JPG " style="align-items: center "
+                                    alt="Third slide ">
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev " href="#carouselExampleIndicators " role="button "
+                            data-slide="prev ">
+                            <span class="carousel-control-prev-icon " aria-hidden="true "></span>
+                            <span class="sr-only ">Previous</span>
+                        </a>
+                        <a class="carousel-control-next " href="#carouselExampleIndicators " role="button "
+                            data-slide="next ">
+                            <span class="carousel-control-next-icon " aria-hidden="true "></span>
+                            <span class="sr-only ">Next</span>
+                        </a>
+                    </div>
+
+                </div>
+                Back to School Program Education is the key to life.Comprehending on this, back to school program was
+                adopted to help remote children have educational accessibility. For instance, after learning that many
+                children from Nandalal and Barabhad find difficulties
+                in getting admitted to an educational system because of no accurate documents. We initiated to be a
+                gateway to provide assistance in obtaining the acquired documents and help them in their admissions.
+                Today we also reach out to
+                students who are interested again in schooling after a short break. We associate with school authorities
+                and appeal on their behalf. Our intent is to put children with willingness to learn back to school.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container " id="Summer Program ">
+        <div class="row ">
+            <a href="# " id="Heading">
+                <h1> <b>Summer Program </b> </h1>
+            </a>
+        </div>
+        <div class="row pb-4 ">
+
+            <div class=" " id="paraFont">
+                <p>
+                <div class="col-md-5 " style=" height:350px;  min-width: 350px ; border-radius:350px;float: left;">
+
+                    <div id="carouselExampleIndicators " class="carousel slide " data-ride="carousel ">
+                        <ol class="carousel-indicators ">
+                            <li data-target="#carouselExampleIndicators " data-slide-to="0 " class="active "></li>
+                            <li data-target="#carouselExampleIndicators " data-slide-to="1 "></li>
+                            <li data-target="#carouselExampleIndicators " data-slide-to="2 "></li>
+                        </ol>
+                        <div class="carousel-inner "
+                            style="width:100%;max-width:700px;height:100% ; max-height: 700px; ">
+                            <div class="carousel-item active ">
+                                <img class="d-block w-100 " src="images/IMG_0015.JPG " style="align-items: center "
+                                    alt="First slide ">
+                            </div>
+                            <div class="carousel-item ">
+                                <img class="d-block w-100 " src="images/IMG_0065.JPG " style="align-items: center "
+                                    alt="Second slide ">
+                            </div>
+                            <div class="carousel-item ">
+                                <img class="d-block w-100 " src="images/IMG_0224.JPG " style="align-items: center "
+                                    alt="Third slide ">
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev " href="#carouselExampleIndicators " role="button "
+                            data-slide="prev ">
+                            <span class="carousel-control-prev-icon " aria-hidden="true "></span>
+                            <span class="sr-only ">Previous</span>
+                        </a>
+                        <a class="carousel-control-next " href="#carouselExampleIndicators " role="button "
+                            data-slide="next ">
+                            <span class="carousel-control-next-icon " aria-hidden="true "></span>
+                            <span class="sr-only ">Next</span>
+                        </a>
+                    </div>
+
+                </div>
+                Every summer for one month this program is organized. Our team members, volunteer and intern take active
+                role every year to make this a valuable meet. Summer program provides teaching in a more experiential
+                way than traditional everyday school method,
+                involving students in active learning for deeper and applicable skills. Summer program gives out a lot
+                of options for students to try and learn a number of skills. The program offers English Language, Letter
+                Writing, Drawing Lesson,
+                Basic Computer Class, and Career Guidance. Summer program also offer music lesson-Keyboard and Guitar
+                and also promote Outdoor Learning. Your donations has help us in organizing such programs and in order
+                for us to keep doing such
+                work we continuously need your support.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container " id="Kids Camp ">
+        <div class="row ">
+            <a href="# " id="Heading">
+                <h1> <b>Kids Camp </b> </h1>
+            </a>
+        </div>
+        <div class="row pb-4 ">
+
+            <div class=" " id="paraFont">
+                <p>
+                <div class="col-md-5 " style=" height:350px;  min-width: 350px ; border-radius:350px;float: right;">
+
+                    <div id="carouselExampleIndicators " class="carousel slide " data-ride="carousel ">
+                        <ol class="carousel-indicators ">
+                            <li data-target="#carouselExampleIndicators " data-slide-to="0 " class="active "></li>
+                            <li data-target="#carouselExampleIndicators " data-slide-to="1 "></li>
+                            <li data-target="#carouselExampleIndicators " data-slide-to="2 "></li>
+                        </ol>
+                        <div class="carousel-inner "
+                            style="width:100%;max-width:700px;height:100% ; max-height: 700px; ">
+                            <div class="carousel-item active ">
+                                <img class="d-block w-100 " src="images/IMG_0015.JPG " style="align-items: center "
+                                    alt="First slide ">
+                            </div>
+                            <div class="carousel-item ">
+                                <img class="d-block w-100 " src="images/IMG_0065.JPG " style="align-items: center "
+                                    alt="Second slide ">
+                            </div>
+                            <div class="carousel-item ">
+                                <img class="d-block w-100 " src="images/IMG_0224.JPG " style="align-items: center "
+                                    alt="Third slide ">
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev " href="#carouselExampleIndicators " role="button "
+                            data-slide="prev ">
+                            <span class="carousel-control-prev-icon " aria-hidden="true "></span>
+                            <span class="sr-only ">Previous</span>
+                        </a>
+                        <a class="carousel-control-next " href="#carouselExampleIndicators " role="button "
+                            data-slide="next ">
+                            <span class="carousel-control-next-icon " aria-hidden="true "></span>
+                            <span class="sr-only ">Next</span>
+                        </a>
+                    </div>
+
+                </div>
+                PMI has been serving them through various tutoring programs. Currently, more than 80 children are being
+                tutored either at the PMI center or in the slum itself. The “Back to School” program of PMI has been
+                able to see 67 children be enrolled in the local
+                government school so far. These things will be very difficult without getting to know the kids and
+                families personally.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container " id="Career Counseling ">
+        <div class="row ">
+            <a href="# " id="Heading">
+                <h1> <b>Career Counseling </b> </h1>
+            </a>
+        </div>
+        <div class="row pb-4 ">
+
+            <div class=" " id="paraFont">
+                <p>
+                <div class="col-md-5 " style=" height:350px;  min-width: 350px ; border-radius:350px;float: left;">
+
+                    <div id="carouselExampleIndicators " class="carousel slide " data-ride="carousel ">
+                        <ol class="carousel-indicators ">
+                            <li data-target="#carouselExampleIndicators " data-slide-to="0 " class="active "></li>
+                            <li data-target="#carouselExampleIndicators " data-slide-to="1 "></li>
+                            <li data-target="#carouselExampleIndicators " data-slide-to="2 "></li>
+                        </ol>
+                        <div class="carousel-inner "
+                            style="width:100%;max-width:700px;height:100% ; max-height: 700px; ">
+                            <div class="carousel-item active ">
+                                <img class="d-block w-100 " src="images/IMG_0015.JPG " style="align-items: center "
+                                    alt="First slide ">
+                            </div>
+                            <div class="carousel-item ">
+                                <img class="d-block w-100 " src="images/IMG_0065.JPG " style="align-items: center "
+                                    alt="Second slide ">
+                            </div>
+                            <div class="carousel-item ">
+                                <img class="d-block w-100 " src="images/IMG_0224.JPG " style="align-items: center "
+                                    alt="Third slide ">
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev " href="#carouselExampleIndicators " role="button "
+                            data-slide="prev ">
+                            <span class="carousel-control-prev-icon " aria-hidden="true "></span>
+                            <span class="sr-only ">Previous</span>
+                        </a>
+                        <a class="carousel-control-next " href="#carouselExampleIndicators " role="button "
+                            data-slide="next ">
+                            <span class="carousel-control-next-icon " aria-hidden="true "></span>
+                            <span class="sr-only ">Next</span>
+                        </a>
+                    </div>
+
+                </div>
+                Meet Prabin: direct, engaging, swift, fun, organized and hard working - the perfect guy to lead as PMI’s
+                campus coordinator as well as he is working as a Manager of PMI. Prabin hails from the north east state
+                of Manipur. Having a heart and passion to
+                help university students, he plays a vital role on PMI’s team. An easy guy to get to know, he isn’t just
+                an encouragement to students, but a point of connection between them and PMI.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container " id="Parent's Education">
+        <div class="row ">
+            <a href="# " id="Heading">
+                <h1> <b>Parent's Education</b> </h1>
+            </a>
+        </div>
+        <div class="row pb-4 ">
+
+            <div class=" " id="paraFont">
+                <p>
+                <div class="col-md-5 " style=" height:350px;  min-width: 350px ; border-radius:350px;float:right;">
+
+                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                        </ol>
+                        <div class="carousel-inner" style="width:100%;max-width:700px;height:100% ; max-height: 700px;">
+                            <div class="carousel-item active">
+                                <img class="d-block w-100" src="images/IMG_0015.JPG" style="align-items: center"
+                                    alt="First slide">
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block w-100" src="images/IMG_0065.JPG" style="align-items: center"
+                                    alt="Second slide">
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block w-100" src="images/IMG_0224.JPG" style="align-items: center"
+                                    alt="Third slide">
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
+                            data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
+                            data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+
+                </div>
+
+                Parent education was started together with students of Shri Ram College of Commerce (SRCC) for one year.
+                Now the staff and coordinates are taking care of it. The program is formulated to help parents acquire
+                and embody parenting skills and to learn about
+                their children's cognitive, literacy and development growth. The program gives talks on sensitive
+                subjects like Domestic Violence, Girl Child Education, Child Marriage, Birth Control, Mensuration,
+                Hygiene and also deals with family-related
+                problems- Financial, Unemployment and Alcohol Addiction. The program also emphasis Mothers at Home. We
+                provide support so that they learn the skills they will need to find employment and ensure their
+                children grow up well and manage
+                the family's needs. Without your contribution be it in the form of financial assistance, volunteer, or
+                material we wouldn't be able to come this far today. And for us to keep up this, we need your continual
+                support.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container " id="Vision Project">
+        <div class="row ">
+            <a href="# " id="Heading">
+                <h1> <b>Vision Project</b> </h1>
+            </a>
+        </div>
+        <div class="row pb-4 ">
+
+            <div class=" " id="paraFont">
+                <p>
+                <div class="col-md-5 " style=" height:350px;  min-width: 350px ; border-radius:350px;float:left;">
+
+                    <div id="carouselExampleIndicators " class="carousel slide " data-ride="carousel ">
+                        <ol class="carousel-indicators ">
+                            <li data-target="#carouselExampleIndicators " data-slide-to="0 " class="active "></li>
+                            <li data-target="#carouselExampleIndicators " data-slide-to="1 "></li>
+                            <li data-target="#carouselExampleIndicators " data-slide-to="2 "></li>
+                        </ol>
+                        <div class="carousel-inner "
+                            style="width:100%;max-width:700px;height:100% ; max-height: 700px; ">
+                            <div class="carousel-item active ">
+                                <img class="d-block w-100 " src="images/IMG_0015.JPG " style="align-items: center "
+                                    alt="First slide ">
+                            </div>
+                            <div class="carousel-item ">
+                                <img class="d-block w-100 " src="images/IMG_0065.JPG " style="align-items: center "
+                                    alt="Second slide ">
+                            </div>
+                            <div class="carousel-item ">
+                                <img class="d-block w-100 " src="images/IMG_0224.JPG " style="align-items: center "
+                                    alt="Third slide ">
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev " href="#carouselExampleIndicators " role="button "
+                            data-slide="prev ">
+                            <span class="carousel-control-prev-icon " aria-hidden="true "></span>
+                            <span class="sr-only ">Previous</span>
+                        </a>
+                        <a class="carousel-control-next " href="#carouselExampleIndicators " role="button "
+                            data-slide="next ">
+                            <span class="carousel-control-next-icon " aria-hidden="true "></span>
+                            <span class="sr-only ">Next</span>
+                        </a>
+                    </div>
+
+                </div>
+                The people in this world are remarkably different, yet in our differences we also see sameness. We may
+                have been born to different families, but nevertheless, we were all born! Just the same, everyone faces
+                it differently, but we all have to face death.
+                Everything in between, what we call life, only continues this trend. One different “sameness” we’d like
+                you to consider is how every person is uniquely gifted. Some have athleticism, others excel in learning,
+                some in art or music,
+                and the list goes on - but the sameness is profound: we are all abled! That is why at PMI we refuse to
+                comply with the phrase “disabled” - it doesn’t fit our anthropology! Individuals that are blind, deaf,
+                mute, paraplegic without
+                limbs, and so forth are wonderfully “differently-abled” - abled in a way that rest of us aren’t!
+            </div>
+        </div>
+    </div>
+</div> -->
+
+    {%endblock content%}

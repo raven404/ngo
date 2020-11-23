@@ -12,9 +12,37 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
     <link href="{% static 'css/owl.carousel.css' %}" rel="stylesheet" type="text/css" />
     <link href="{% static 'css/owl.theme.default.css' %}" rel="stylesheet" type="text/css" />
-
-    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" />
+    
+    <link href="{% static 'css/style_1.css' %}" rel="stylesheet" type="text/css" />
     <script src="{% static 'js/modernizr-3.5.0.min.js' %}"></script>
+    {{ form.media }}
+    <!-- Required meta tags -->
+
+    <link href="{% static 'css/style_1.css' %}" rel="stylesheet" type="text/css" />
+
+    <!-- Modernizr JS -->
+    <style>
+        .navbar-nav li:hover>ul.dropdown-menu {
+            display: block;
+        }
+        
+        .dropdown-submenu {
+            position: relative;
+        }
+        
+        .dropdown-submenu>.dropdown-menu {
+            top: 0;
+            left: 100%;
+            margin-top: -6px;
+        }
+        /* rotate caret on hover */
+        
+        .dropdown-menu>li>a:hover:after {
+            text-decoration: underline;
+            transform: rotate(-90deg);
+        }
+    </style>
+
 
 
 

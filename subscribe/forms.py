@@ -8,8 +8,8 @@ class EmailSignupForm(forms.ModelForm):
         "name": "email",
         "id": "email",
         "placeholder": "Enter your email address",
-        "class" :"form-control fh5co_footer_text_box",
-        "aria-describedby":"basic-addon1",
+        "class": "form-control fh5co_footer_text_box",
+        "aria-describedby": "basic-addon1",
 
     }), label="")
 

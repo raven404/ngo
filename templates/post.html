@@ -1,157 +1,180 @@
-{% extends 'base.html' %}
-{% load static %}
-
-{% block content %}
+{% extends 'base.html' %} {% load static %} {% block content %}
 
 <style>
-  .post-body img {
-    width: 100%;
-  }
+    .post-body img {
+        width: 100%;
+    }
 </style>
 
 <div class="container-fluid pb-4 pt-4 paddding">
-  <div class="container paddding">
-      <div class="row mx-0">
+    <div class="container paddding">
+        <div class="row mx-0">
 
-     
+
             <!-- Latest Posts -->
-            <main class="post blog-post col-lg-8"> 
-              <div class="container">
-                <div>
-                  <div class="fh5co_heading fh5co_heading_border_bottom py-2 mb-4" id="head"><h5 style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-weight: bold;">POST DETAIL</h5></div>
-                </div>                                                                                                                                                                                                                                                                                                                                                                                                      
-                
-                
-                <div class="post-single"> 
-                  <div class="post-thumbnail"><img src="{{ post.thumbnail.url }}" alt="..." class="img-fluid"></div>
-                    <div class="post-details">
-                      <div class="post-meta d-flex justify-content-between">
-                        <div class="category"><br><i class="fa fa-th-list" aria-hidden="true"></i>
-                          {% for cat in post.categories.all %}
-                                                    <a href="#">{{ cat }}</a>
-                          {% endfor %}
-                        </div>
-                        {%if request.user.is_staff%}
-                        <div class="" ><!-- update / delete --> <br>
-                          <a href="{% url 'src:post-update' pk=post.pk %}"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp Update</a>&nbsp&nbsp &nbsp  
-                          <a href="{% url 'src:post-delete' pk=post.pk %}"><i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp Delete</a>
-                        </div>
-                        {%endif%}
-                      </div>
-                      <!-- title -->
-                      <h1 style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-weight: bold; padding-top: 20px;" >{{ post.title }}&nbsp <a href="#"><i class="fa fa-bookmark-o" aria-hidden="true"></i></a></h1>
-                      <div class="post-footer d-flex align-items-center flex-column flex-sm-row" style="padding-top: 20px;"><a href="#" class="author d-flex align-items-center flex-wrap">
-                          <img src="{{ post.author.profile_picture.url }}"  alt="..."class="rounded-circle"  width="40" height="40">&nbsp&nbsp
-                          <div class="title"><span>{{ post.author.user.username }}</span></div></a>&nbsp &nbsp
-                        <div class="d-flex align-items-center flex-wrap">       
-                          <div class="date"><i class="icon-clock"></i> {{ post.timestamp|timesince }}</div>&nbsp&nbsp
-                          <div class="views"><i class="fa fa-eye" aria-hidden="true"></i>&nbsp{{ post.view_count }}</div>&nbsp&nbsp
-                          <div class="comments meta-last" ><i class="fa fa-comments" aria-hidden="true"></i>&nbsp{{ post.comment_count }}</div></div>
+            <main class="post blog-post col-lg-8">
+                <div class="container">
+                    <div>
+                        <div class="fh5co_heading fh5co_heading_border_bottom py-2 mb-4" id="head">
+                            <h2 id="Heading">
+                                <b>Read more about us !!!!!</b></h2>
                         </div>
                     </div>
-<!--  post content-->
-                    <div class="post-body" style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding-top: 20PX;">
-                      {{ post.content | safe }}
-                    </div>
-                    <div class="posts-nav d-flex justify-content-between align-items-stretch flex-column flex-md-row" style="padding-top: 50px;">
-                    {% if post.previous_post %}
-                    <a href="{{ post.previous_post.get_absolute_url }}" class="prev-post text-left d-flex align-items-center">
-                        <!-- <div class="icon prev" ><i class="fa fa-angle-left"></i></div> -->
-                        <div class="text"><strong class="text-primary">Previous Post </strong>
-                          <h6>{{ post.previous_post.title }}</h6>
-                        </div>
-                    </a>
-                    {% endif %}
-                    {% if post.next_post %}
-                    <a href="{{ post.next_post.get_absolute_url }}" class="next-post text-right d-flex align-items-center justify-content-end"> 
-                      <!-- <div class="icon next"><i class="fa fa-angle-right">   </i></div> -->
-                        <div class="text"><strong class="text-primary">Next Post </strong>
-                          <h6>{{ post.next_post.title }}</h6>
-                        </div>
-                       
-                    </a>
-                    {% endif %}
-                    </div>
-                    <div class="post-comments" style="padding-top: 30px;">
-                      <header>
-                        <h3 class="h6">Post Comments<span class="no-of-comments">&nbsp({{ post.comments.count }})</span></h3>
-                      </header>
-                      {% for comment in post.get_comments %}
-                      <div class="comment">
-                        <div class="comment-header d-flex justify-content-between">
-                          <div class="user d-flex align-items-center">
-                            <div class="image">
-                              {% if comment.user.author %}
-                              <img src="{{ comment.user.author.profile_picture.url }}"  alt="..." class="rounded-circle"  width="25" height="25">
-                              {% else %}
-                              <img src="{% static 'img/user.svg' %}" alt="..." class="img-fluid rounded-circle">
-                              {% endif %}
+
+
+                    <div class="post-single">
+                        <div class="post-thumbnail"><img src="{{ post.thumbnail.url }}" alt="..." class="img-fluid"></div>
+                        <div class="post-details">
+                            <div class="post-meta d-flex justify-content-between">
+                                <div class="category"><br><i class="fa fa-th-list" aria-hidden="true"></i> {% for cat in post.categories.all %}
+                                    <a href="#">{{ cat }}</a> {% endfor %}
+                                </div>
+                                {%if request.user.is_staff%}
+                                <div class="">
+                                    <!-- update / delete --><br>
+                                    <a href="{% url 'posts:post-update' pk=post.pk %}"><i class="fa fa-pencil"
+                      aria-hidden="true"></i>&nbsp Update</a>&nbsp&nbsp &nbsp
+                                    <!-- <a href="{% url 'posts:post-delete' pk=post.pk %}"><i class="fa fa-trash-o"
+                      aria-hidden="true"></i>&nbsp Delete</a> -->
+
+                                    <form id='person-delete' method="POST" action="{% url 'posts:post-delete' pk=post.pk %}">
+                                        {% csrf_token %}
+                                        <a href="{% url 'posts:post-delete' pk=post.pk%}">
+                                            <button class="btn btn-danger" onClick="deleteFunction()">Delete</button></a>
+                                    </form>
+
+                                    <script>
+                                        function deleteFunction(e) {
+                                            if (!confirm("Are you sure you want to delete?")) {
+                                                e.preventDefault();
+                                            } else {
+                                                $('#person-delete').submit();
+                                            }
+                                        }
+                                    </script>
+                                </div>
+                                {%endif%}
                             </div>
-                            <div class="title"><strong>&nbsp{{ comment.user.username }}</strong><span class="date">&nbsp&nbsp{{ comment.timestamp|timesince }} ago</span></div>
-                          </div>
-                        </div>
-                        <div class="comment-body">
-                          <p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ comment.content }}</p>
-                        </div>
-                      </div>
-                      {% endfor %}
-                      {% if request.user.is_authenticated %}
-                      <div class="add-comment">
-                        <header>
-                          <h3 class="h6"  style="padding-bottom: 20;">&nbspLeave a reply</h3>
-                        </header>
-                        <form method="POST" action="." class="commenting-form">
-                          {% csrf_token %}
-                          <div class="row">
-                            <div class="form-group col-md-12">
-                              {{ comment }}
+                            <!-- title -->
+                            <h1 style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-weight: bold; padding-top: 20px;">
+                                {{ post.title }}&nbsp <a href="#"><i class="fa fa-bookmark-o" aria-hidden="true"></i></a></h1>
+                            <div class="post-footer d-flex align-items-center flex-column flex-sm-row" style="padding-top: 20px;">
+                                <a href="#" class="author d-flex align-items-center flex-wrap">
+                                    <img src="{{ post.author.profile_picture.url }}" alt="..." class="rounded-circle" width="40" height="40">&nbsp&nbsp
+                                    <div class="title"><span>{{ post.author.user.username }}</span></div>
+                                </a>&nbsp &nbsp
+                                <div class="d-flex align-items-center flex-wrap">
+                                    <div class="date"><i class="icon-clock"></i> {{ post.timestamp|timesince }}</div>&nbsp&nbsp
+                                    <div class="views"><i class="fa fa-eye" aria-hidden="true"></i>&nbsp{{ post.view_count }}</div>
+                                    &nbsp&nbsp
+                                    <div class="comments meta-last"><i class="fa fa-comments" aria-hidden="true"></i>&nbsp{{ post.comment_count }}</div>
+                                </div>
                             </div>
-                            <div class="form-group col-md-12">
-                              <button type="submit" class="btn btn-secondary">Comment</button>
+                        </div>
+                        <!--  post content-->
+                        <div class="post-body" style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding-top: 20PX;">
+                            {{ post.content | safe }}
+                        </div>
+                        <div class="posts-nav d-flex justify-content-between align-items-stretch flex-column flex-md-row" style="padding-top: 50px;">
+                            {% if post.previous_post %}
+                            <a href="{{ post.previous_post.get_absolute_url }}" class="prev-post text-left d-flex align-items-center">
+                                <!-- <div class="icon prev" ><i class="fa fa-angle-left"></i></div> -->
+                                <div class="text"><strong class="text-primary">Previous Post </strong>
+                                    <h6>{{ post.previous_post.title }}</h6>
+                                </div>
+                            </a>
+                            {% endif %} {% if post.next_post %}
+                            <a href="{{ post.next_post.get_absolute_url }}" class="next-post text-right d-flex align-items-center justify-content-end">
+                                <!-- <div class="icon next"><i class="fa fa-angle-right">   </i></div> -->
+                                <div class="text"><strong class="text-primary">Next Post </strong>
+                                    <h6>{{ post.next_post.title }}</h6>
+                                </div>
+
+                            </a>
+                            {% endif %}
+                        </div>
+                        <div class="post-comments" style="padding-top: 30px;">
+                            <header>
+                                <h3 class="h6"><b>Post Comments</b><span class="no-of-comments">&nbsp({{ post.comments.count }})</span></h3>
+                            </header>
+                            {% for comment in post.get_comments %}
+                            <div class="comment">
+                                <div class="comment-header d-flex justify-content-between">
+                                    <div class="user d-flex align-items-center">
+                                        <div class="image">
+                                            {% if comment.user.author %}
+                                            <img src="{{ comment.user.author.profile_picture.url }}" alt="..." class="rounded-circle" width="25" height="25"> {% else %}
+                                            <img src="{% static 'img/user.svg' %}" alt="..." class="img-fluid rounded-circle"> {% endif %}
+                                        </div>
+                                        <div class="title"><strong>&nbsp{{ comment.user.username }}</strong><span class="date">&nbsp&nbsp{{ comment.timestamp|timesince }} ago</span></div>
+                                    </div>
+                                </div>
+                                <div class="comment-body">
+                                    <p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ comment.content }}</p>
+                                </div>
                             </div>
-                          </div>
-                        </form>
-                      </div>
-                      <!-- {% else %}
+                            {% endfor %} {% if request.user.is_authenticated %}
+                            <div class="add-comment">
+                                <header>
+                                    <h3 class="h6" style="padding-bottom: 20;"><b>&nbspLeave a reply</b></h3>
+                                </header>
+                                <form method="POST" action="." class="commenting-form">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="form-group col-md-12">
+                                            {{ comment }}
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <button type="submit" class="btn btn-secondary"><b>Comment</b></button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- {% else %}
                       <a href='/accounts/login'  class="btn btn-primary">Login to comment</a>
                       {% endif %}
                      -->
-                      
+
+                        </div>
                     </div>
                 </div>
-              </div>
             </main>
-          
 
-        <div class="col-md-3 animate-box" data-animate-effect="fadeInRight">
-                        <div>
-                            <div class="fh5co_heading fh5co_heading_border_bottom py-2 mb-4"><h6 style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-weight: bold;">Tags</h6></div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="fh5co_tags_all">
-                            <a href="#" class="fh5co_tagg">NGO</a>
-                            <a href="#" class="fh5co_tagg">NON-PROFIT</a>
-                            <a href="#" class="fh5co_tagg">VOLUNTEER</a>
-                            <a href="#" class="fh5co_tagg">EDUCATION</a>
-                            <a href="#" class="fh5co_tagg">DONATE</a>
-                            <a href="#" class="fh5co_tagg">LOVE</a>
-                            <a href="#" class="fh5co_tagg">INDIA</a>
-                            <a href="#" class="fh5co_tagg">PHILANTHROPY</a>
-                            <a href="#" class="fh5co_tagg">CHANGE</a>
-                            <a href="#" class="fh5co_tagg">UNITEDONATIONS</a>
-                            <a href="#" class="fh5co_tagg">FUNDRAISING</a>
-                            <a href="#" class="fh5co_tagg">SOCIALWORKS</a>
-                        </div>
-                        <div>
-                            <div class="fh5co_heading fh5co_heading_border_bottom pt-3 py-2 mb-4">PMI Events</div>
-                        </div>
-                        <iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%239E69AF&amp;ctz=Asia%2FKolkata&amp;src=c3JpdmFzdGF2YW1yaXR1bmpheTAxQGdtYWlsLmNvbQ&amp;src=YWRkcmVzc2Jvb2sjY29udGFjdHNAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&amp;src=ZHVyOWtuNDVsN29jbDUzaDBhdnE2cGlkcjhAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;src=ZW4uaW5kaWFuI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&amp;color=%23039BE5&amp;color=%2333B679&amp;color=%233F51B5&amp;color=%230B8043"
-                            style="border:solid 1px #777" width="400" height="450" frameborder="0" scrolling="no"></iframe>
 
+            <div class="col-md-3 animate-box" data-animate-effect="fadeInRight">
+                <div>
+                    <div class="fh5co_heading fh5co_heading_border_bottom py-2 mb-4">
+                        <h2 id="Heading"><b>Tags</b>
+                        </h2>
                     </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="fh5co_tags_all">
+                    <a href="#" class="fh5co_tagg">NGO</a>
+                    <a href="#" class="fh5co_tagg">NON-PROFIT</a>
+                    <a href="#" class="fh5co_tagg">VOLUNTEER</a>
+                    <a href="#" class="fh5co_tagg">EDUCATION</a>
+                    <a href="#" class="fh5co_tagg">DONATE</a>
+                    <a href="#" class="fh5co_tagg">LOVE</a>
+                    <a href="#" class="fh5co_tagg">INDIA</a>
+                    <a href="#" class="fh5co_tagg">PHILANTHROPY</a>
+                    <a href="#" class="fh5co_tagg">CHANGE</a>
+                    <a href="#" class="fh5co_tagg">UNITEDONATIONS</a>
+                    <a href="#" class="fh5co_tagg">FUNDRAISING</a>
+                    <a href="#" class="fh5co_tagg">SOCIALWORKS</a>
+                </div>
+                <div>
+                    <div id="Heading" class=" fh5co_heading_border_bottom pt-3 py-2 mb-4">
+                        <h2><b>PMI Events</b></h2>
+                    </div>
+                </div>
+                <iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%239E69AF&amp;ctz=Asia%2FKolkata&amp;src=c3JpdmFzdGF2YW1yaXR1bmpheTAxQGdtYWlsLmNvbQ&amp;src=YWRkcmVzc2Jvb2sjY29udGFjdHNAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&amp;src=ZHVyOWtuNDVsN29jbDUzaDBhdnE2cGlkcjhAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;src=ZW4uaW5kaWFuI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&amp;color=%23039BE5&amp;color=%2333B679&amp;color=%233F51B5&amp;color=%230B8043"
+                    style="border:solid 1px #777" width="400" height="450" frameborder="0" scrolling="no"></iframe>
+
             </div>
-
         </div>
-    </div>
-{% endblock content %}
 
+    </div>
+</div>
+
+{% endblock content %}

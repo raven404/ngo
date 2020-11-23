@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<head>
+    <script id="bolt" src="https://sboxcheckout-static.citruspay.com/bolt/run/bolt.min.js" bolt- color="<color-code>"
+        bolt-logo="<image path>"></script>
+</head>
+<script>
+    var RequestData = {
+        key: 'rjQUPktU',
+        txnid: '123456789',
+        hash: 'defdfaadgerhetiwerer',
+        amount: '1',
+        firstname: 'Jaysinh',
+        email: 'dummyemail@dummy.com',
+        phone: '6111111111',
+        productinfo: 'Bag',
+        surl: 'https://sucess-url.in',
+        furl: 'https://fail-url.in',
+        mode: 'dropout'// non-mandatory for Customized Response Handling
+    }
+</script>
+<script>var Handler = {
+
+        responseHandler: function (BOLT) {
+
+            // your payment response Code goes here, BOLT is the response object
+
+        },
+        catchException: function (BOLT) {
+
+            // the code you use to handle the integration errors goes here
+
+        }
+    }</script>
+bolt.launch( data , handler );
+<script>
+    responseHandler: function(BOLT) {
+
+        console.log(BOLT.response.txnStatus);
+
+        //  this is for capturing the status of the transaction
+
+    }
+
+    catchException: function(BOLT) {
+
+        alert(BOLT.message);
+
+        // "amount: should be numeric"
+        // "txnid: mandatory param is missing"
+        // "Error in adding payment"
+
+    }</script>
+<script>
+    {
+        "txnStatus": "SUCCESS",
+            "txnMessage": "",
+                "postBackParamId": "'',
+        "mihpayid": "",
+            "paymentId": '',
+                "status": "success",
+                    "unmappedstatus": "",
+                        "key": "",
+                            "txnid": "",
+                                "amount": "",
+                                    "addedon": "",
+                                        "createdOn": "",
+                                            "productinfo": "",
+                                                "firstname": "",
+                                                    "email": "",
+                                                        "phone": "",
+                                                            "hash": "",
+                                                                "field9": "",
+                                                                    "PG_TYPE": "",
+                                                                        "bank_ref_num": "",
+                                                                            "bankcode": "",
+                                                                                "error": "",
+                                                                                    "error_Message": "",
+                                                                                        "postUrl": "",
+                                                                                            "calledStatus": false,
+                                                                                                "additional_param": "",
+                                                                                                    "amount_split": "",
+                                                                                                        "paisa_mecode": "",
+                                                                                                            "meCode": "",
+                                                                                                                "payuMoneyId": ""
+    }</script>
+{%endblock content%}

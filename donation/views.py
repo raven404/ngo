@@ -35,7 +35,7 @@ def pay(request):
     PAYU_BASE_URL = "https://sandboxsecure.payu.in/_payment"
     action = ''
     posted = {}
-    surl = "/sucess"
+    surl = "/success"
     furl = "/failure"
 
     # Merchant Key and Salt provided y the PayU.
@@ -59,9 +59,9 @@ def pay(request):
     hashh = hashlib.sha512((hash_string).encode('utf-8')).hexdigest().lower()
     action = PAYU_BASE_URL
     if(posted.get("key") != None and posted.get("txnid") != None and posted.get("productinfo") != None and posted.get("firstname") != None and posted.get("email") != None):
-        return render(request, 'Donation.html', {"posted": posted, "hashh": hashh, "MERCHANT_KEY": MERCHANT_KEY, "txnid": txnid, "hash_string": hash_string,  "surl": surl, "furl": furl, 'most': most_view, 'form': form, "action": "https://sandboxsecure.payu.in/_payment"})
+        return render(request, 'Donation.html', {"posted": posted, "hashh": hashh, "MERCHANT_KEY": MERCHANT_KEY, "txnid": txnid, "hash_string": hash_string,  "surl": surl, "furl": furl, 'most': most_view, 'form': form, "now": now, "latest": latest, "action": "https://sandboxsecure.payu.in/_payment"})
     else:
-        return render(request, 'Donation.html', {"posted": posted, "hashh": hashh, "MERCHANT_KEY": MERCHANT_KEY, "txnid": txnid, "hash_string": hash_string,  "surl": surl, "furl": furl, 'most': most_view, 'form': form, "action": "."})
+        return render(request, 'Donation.html', {"posted": posted, "hashh": hashh, "MERCHANT_KEY": MERCHANT_KEY, "txnid": txnid, "hash_string": hash_string,  "surl": surl, "furl": furl, 'most': most_view, 'form': form, "now": now, "latest": latest, "action": "."})
 
 
 @csrf_protect

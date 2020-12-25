@@ -35,8 +35,8 @@ def pay(request):
     PAYU_BASE_URL = "https://sandboxsecure.payu.in/_payment"
     action = ''
     posted = {}
-    surl = "/success"
-    furl = "/failure"
+    surl = "http://127.0.0.1:8000/success/"
+    furl = "http://127.0.0.1:8000/failure/"
 
     # Merchant Key and Salt provided y the PayU.
     for i in request.POST:
@@ -59,9 +59,9 @@ def pay(request):
     hashh = hashlib.sha512((hash_string).encode('utf-8')).hexdigest().lower()
     action = PAYU_BASE_URL
     if(posted.get("key") != None and posted.get("txnid") != None and posted.get("productinfo") != None and posted.get("firstname") != None and posted.get("email") != None):
-        return render(request, 'Donation.html', {"posted": posted, "hashh": hashh, "MERCHANT_KEY": MERCHANT_KEY, "txnid": txnid, "hash_string": hash_string,  "surl": surl, "furl": furl, 'most': most_view, 'form': form, "now": now, "latest": latest, "action": "https://sandboxsecure.payu.in/_payment"})
+        return render(request, 'current_datetime.html', {"posted": posted, "hashh": hashh, "MERCHANT_KEY": MERCHANT_KEY, "txnid": txnid, "hash_string": hash_string,  "surl": surl, "furl": furl, 'most': most_view, 'form': form, "now": now, "latest": latest, "action": "https://sandboxsecure.payu.in/_payment"})
     else:
-        return render(request, 'Donation.html', {"posted": posted, "hashh": hashh, "MERCHANT_KEY": MERCHANT_KEY, "txnid": txnid, "hash_string": hash_string,  "surl": surl, "furl": furl, 'most': most_view, 'form': form, "now": now, "latest": latest, "action": "."})
+        return render(request, 'current_datetime.html', {"posted": posted, "hashh": hashh, "MERCHANT_KEY": MERCHANT_KEY, "txnid": txnid, "hash_string": hash_string,  "surl": surl, "furl": furl, 'most': most_view, 'form': form, "now": now, "latest": latest, "action": "."})
 
 
 @csrf_protect
@@ -92,7 +92,7 @@ def success(request):
         print("Your Transaction ID for this transaction is ", txnid)
         print("We have received a payment of Rs. ",
               amount, ". Your order will soon be shipped.")
-    return render(request, 'success.html', {"txnid": txnid, "status": status, "amount": amount, })
+    return render(request, 'success.html', {"txnid": txnid, "status": status, "amount": amount, 'most': most_view, 'form': form, "now": now, "latest": latest, })
 
 
 @csrf_protect
@@ -123,4 +123,4 @@ def failure(request):
         print("Your Transaction ID for this transaction is ", txnid)
         print("We have received a payment of Rs. ",
               amount, ". Your order will soon be shipped.")
-    return render(request, "Failure.html", c)
+    return render(request, "Failure.html", {'most': most_view, 'form': form, "now": now, "latest": latest, })
